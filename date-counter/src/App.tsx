@@ -53,9 +53,9 @@ function DateInfo({ days }: dateInfoProps): JSX.Element {
 		return newDate.toDateString();
 	};
 
-	const message = days < 0 ? `${days} ago ` : `${days} from `;
-	const verb = days < 0 ? ` was ` : ` will be `;
-	const sentence = `${message} today ${verb} ${getDateAdd(days)}`;
+	const message = days < 0 ? `${days} days ago was ` : `${days} days from today is `;
+
+	const sentence = `${message} ${getDateAdd(days)}`;
 	return <p className='text-date'>{sentence}</p>;
 }
 
