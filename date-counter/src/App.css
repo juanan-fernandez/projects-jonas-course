@@ -19,8 +19,9 @@ button {
 	width: 100px;
 }
 
-.date-text {
+.text-date {
 	margin: 1rem;
+	font-size: 2rem;
 }
 
 div {

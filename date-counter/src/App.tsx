@@ -50,7 +50,7 @@ function DateInfo({ days }: dateInfoProps): JSX.Element {
 	const getDateAdd = (daysToAdd: number) => {
 		let newDate = new Date();
 		newDate.setDate(newDate.getDate() + daysToAdd);
-		return newDate;
+		return newDate.toDateString();
 	};
 
 	const message = days < 0 ? `${days} ago ` : `${days} from `;
