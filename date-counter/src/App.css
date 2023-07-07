@@ -1,0 +1,28 @@
+#root {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+}
+
+button {
+	background-color: #4caf50;
+	color: white;
+	padding: 1rem 2rem;
+	border-radius: 10px;
+	margin: 1rem;
+	font-size: 2rem;
+}
+
+.text {
+	display: inline-block;
+	width: 100px;
+}
+
+.date-text {
+	margin: 1rem;
+}
+
+div {
+	padding: 1rem;
+}
