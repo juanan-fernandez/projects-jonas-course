@@ -1,0 +1,33 @@
+.list {
+	background-color: #5a3e2b;
+	color: #ffebb3;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding: 3rem 0;
+}
+
+.list ul {
+	width: 80%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.list li {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1.2rem;
+}
+
+.list li button {
+	background: none;
+	border: none;
+	font-size: 1.8rem;
+	transform: translateY(4px);
+	cursor: pointer;
+	color: red;
+	text-align: center;
+	padding: 0.8rem;
+}
