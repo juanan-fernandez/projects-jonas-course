@@ -1,3 +1,7 @@
+.is-packed {
+	text-decoration: line-through;
+}
+
 input[type='checkbox'] {
 	height: 2rem;
 	width: 2rem;

@@ -2,20 +2,28 @@ import styles from './PackList.module.css';
 import { PackItem } from '../PackItem/PackItem';
 import type { PackItemT } from '../PackItem/PackItem';
 
-interface PackListT {
+interface PackListProps {
 	packItemsList: PackItemT[];
+	updatePackListItem: (id: string) => void;
+	deletePackListItem: (id: string) => void;
 }
 
-export function PackList({ packItemsList }: PackListT): JSX.Element {
+export function PackList({
+	packItemsList,
+	updatePackListItem,
+	deletePackListItem
+}: PackListProps): JSX.Element {
 	const list = packItemsList.map((item: PackItemT) => {
 		return (
 			<li key={item.id}>
-				<PackItem
-					id={item.id}
-					description={item.description}
-					units={item.units}
-					packed={item.packed}
-				/>
+				{
+					// <PackItem packItem={item} updatePackItem= {updatePackListItem} deletePackItem={deletePackListItem}/>}
+					<PackItem
+						packItem={item}
+						updatePackItem={updatePackListItem}
+						deletePackItem={deletePackListItem}
+					/>
+				}
 			</li>
 		);
 	});
