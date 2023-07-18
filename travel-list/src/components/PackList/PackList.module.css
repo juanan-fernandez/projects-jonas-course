@@ -31,3 +31,23 @@
 	text-align: center;
 	padding: 0.8rem;
 }
+
+.actions {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+}
+
+.actions select,
+.actions button {
+	background-color: #ffebb2;
+	color: #5a3e2b;
+	font-family: inherit;
+	font-weight: 700;
+	font-size: 1.4rem;
+	border: none;
+	border-radius: 10rem;
+	padding: 1rem 2rem;
+	outline: none;
+	cursor: pointer;
+}

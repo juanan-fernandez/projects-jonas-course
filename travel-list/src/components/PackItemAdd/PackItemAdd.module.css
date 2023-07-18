@@ -10,7 +10,6 @@
 .add-form input,
 .add-form select,
 .add-form button {
-	border-radius: 10rem;
 	background-color: #ffebb2;
 	color: #5a3e2b;
 	font-family: inherit;
