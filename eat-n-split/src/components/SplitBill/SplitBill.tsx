@@ -24,7 +24,7 @@ export function SplitBill({ friend }: SplitBillProps): JSX.Element {
 				/>
 				<label htmlFor='expense-friend'>👫 {friend.name}&aposs expense</label>
 				<select>
-					<option value={1}>You </option>
+					<option value={1}>You</option>
 				</select>
 				<button onClick={e => e.preventDefault()}>Calculate split bill!</button>
 			</form>

@@ -1,0 +1,11 @@
+.form_add_friend {
+	grid-template-columns: 1fr 1.5fr;
+	margin-bottom: 1rem;
+	padding: 1.3rem;
+}
+
+.form_add_friend button {
+	grid-column-start: 2;
+	width: 60%;
+	margin-left: auto;
+}

@@ -1,0 +1,26 @@
+.sidebar {
+	display: flex;
+	flex-direction: column;
+}
+
+.sidebar ul {
+	list-style: none;
+	margin-bottom: 2rem;
+}
+
+.sidebar li {
+	padding: 0.5rem 2rem;
+	margin-bottom: 0.5rem;
+	border-radius: 12px;
+	transition: all 0.4s;
+}
+
+.sidebar li.selected,
+.sidebar li:hover {
+	background-color: var(--color-lightest);
+}
+
+.sidebar > .button {
+	margin-left: auto;
+	margin-right: 1.6rem;
+}

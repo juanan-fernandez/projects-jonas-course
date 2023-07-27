@@ -1,0 +1,20 @@
+.friend {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: 1.2rem;
+}
+
+.friend img {
+	height: 80px;
+	border-radius: 50%;
+}
+
+.friend .text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.friend button {
+	align-self: center;
+}
