@@ -6,17 +6,24 @@ import { AddFriend } from './AddFriend'
 
 interface FriendsListProps {
 	friendsData: FriendWithId[]
-	onActivateFriendId: (id: string) => void
+	onActivateFriend: (activeFriend: FriendWithId) => void
+	onAddNewFriendToList: (newFriend: FriendWithId) => void
+	clearActiveFriend: () => void
+	selectedFriendId: string
 }
 
 export function FriendsList({
 	friendsData,
-	onActivateFriendId
+	onActivateFriend,
+	onAddNewFriendToList,
+	clearActiveFriend,
+	selectedFriendId
 }: FriendsListProps): React.ReactNode {
 	const [showAddForm, setShowAddForm] = useState(false)
+
 	//to select a friend
-	const activateFriendIdHandler = (friendId: string): void => {
-		onActivateFriendId(friendId)
+	const activateFriendIdHandler = (activeFriend: FriendWithId): void => {
+		onActivateFriend(activeFriend)
 	}
 
 	const list = friendsData.map(friend => {
@@ -24,7 +31,10 @@ export function FriendsList({
 			<li key={friend.id}>
 				<FriendItem
 					friend={friend}
-					activateFriendId={activateFriendIdHandler.bind(null, friend.id)}
+					selectFriend={activateFriendIdHandler.bind(null, friend)}
+					clearFriend={clearActiveFriend}
+					isSelected={selectedFriendId === friend.id}
+					showAddForm={setShowAddForm}
 				/>
 			</li>
 		)
@@ -33,11 +43,8 @@ export function FriendsList({
 	return (
 		<div className={style.sidebar}>
 			<ul>{list}</ul>
-			{showAddForm && <AddFriend />}
-			<button
-				className={style.button}
-				onClick={(): void => setShowAddForm(!showAddForm)}
-			>
+			{showAddForm && <AddFriend addFriend={onAddNewFriendToList} />}
+			<button className={style.button} onClick={(): void => setShowAddForm(!showAddForm)}>
 				{showAddForm ? 'Close' : 'Add friend'}
 			</button>
 		</div>

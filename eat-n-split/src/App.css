@@ -3,10 +3,3 @@
 	margin: 0 auto;
 	padding: 2rem;
 }
-
-.app {
-	display: grid;
-	align-items: start;
-	grid-template-columns: auto auto;
-	column-gap: 4rem;
-}

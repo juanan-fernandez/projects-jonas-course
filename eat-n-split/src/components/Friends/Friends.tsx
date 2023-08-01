@@ -1,27 +1,49 @@
+import style from './Friends.module.css'
 import { useState } from 'react'
 import { initialFriends } from '../../dummy/data'
 import { FriendsList } from './FriendsList'
 import { FriendWithId } from '../../types/friends'
+import { SplitBill } from '../SplitBill/SplitBill'
 
 export function Friends(): React.ReactNode {
 	const [friendsData, setFriendsData] = useState(initialFriends)
+	const [activeFriend, setActiveFriend] = useState<FriendWithId | null>(null)
 	const [activeFriendId, setActiveFriendId] = useState('')
 
-	const activeFriendIdHandler = (id: string): void => {
-		setActiveFriendId(id)
+	const clearActiveFriend = (): void => {
+		setActiveFriend(null)
+		setActiveFriendId('')
+	}
+	const activeFriendHandler = (active: FriendWithId): void => {
+		setActiveFriend(active)
+		setActiveFriendId(active.id)
 	}
 
 	const addFriendToListHandler = (newFriend: FriendWithId): void => {
 		setFriendsData([...friendsData, newFriend])
 	}
 
+	const updateFriendHandler = (myFriend: FriendWithId): void => {
+		const updatedFriendsList = friendsData.map(f => {
+			return f.id === myFriend.id ? myFriend : f
+		})
+		setFriendsData(updatedFriendsList)
+	}
+
 	return (
-		<div>
+		<div className={style['friends-app']}>
 			<FriendsList
 				friendsData={friendsData}
-				onActivateFriendId={activeFriendIdHandler}
+				onActivateFriend={activeFriendHandler}
+				onAddNewFriendToList={addFriendToListHandler}
+				clearActiveFriend={clearActiveFriend}
+				selectedFriendId={activeFriendId}
 			/>
-			{activeFriendId && <h2>{`Details for ${activeFriendId}`}</h2>}
+			{activeFriend && (
+				<div>
+					<SplitBill friend={activeFriend} onUpdateFriend={updateFriendHandler} clearActiveFriend={clearActiveFriend} />
+				</div>
+			)}
 		</div>
 	)
 }

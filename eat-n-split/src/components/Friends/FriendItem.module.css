@@ -2,6 +2,11 @@
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	gap: 1.2rem;
+	/**/
+	padding: 0.5rem 2rem;
+	margin-bottom: 0.5rem;
+	border-radius: 12px;
+	transition: all 0.4s;
 }
 
 .friend img {
@@ -15,6 +20,19 @@
 	justify-content: center;
 }
 
+.friend:hover,
+.friend.selected {
+	background-color: var(--color-lightest);
+}
+
 .friend button {
 	align-self: center;
+}
+
+.red {
+	color: #e03131;
+}
+
+.green {
+	color: #66a80f;
 }

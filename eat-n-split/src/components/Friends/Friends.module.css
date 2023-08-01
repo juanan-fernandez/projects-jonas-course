@@ -1,0 +1,6 @@
+.friends-app {
+	display: grid;
+	align-items: start;
+	grid-template-columns: 32rem 34rem;
+	column-gap: 4rem;
+}
