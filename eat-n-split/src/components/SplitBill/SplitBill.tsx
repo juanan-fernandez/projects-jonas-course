@@ -29,15 +29,12 @@ export function SplitBill({ friend, onSplitBill }: SplitBillProps): JSX.Element 
 
 	const splitSubmitHandler = (ev: React.FormEvent): void => {
 		ev.preventDefault()
-		let result = 0
+		if (!billAmount || !yourExpense) return
+
 		const bill = Number(billAmount)
 		const expense = Number(yourExpense)
-		if (whoPays === 1) {
-			result = friend.debts + (bill - expense)
-		}
-		if (whoPays === 2) {
-			result = friend.debts - expense
-		}
+		const paidByFriend = bill ? bill - expense : 0
+		const result = whoPays === 1 ? paidByFriend : -1 * expense
 
 		onSplitBill(result)
 	}

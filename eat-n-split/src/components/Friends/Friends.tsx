@@ -31,7 +31,7 @@ export function Friends(): React.ReactNode {
 	const splitBillHandler = (balance: number): void => {
 		if (activeFriend) {
 			setFriendsData(currentList => {
-				return currentList.map(f => (f.id === activeFriend.id ? { ...activeFriend, debts: balance } : f))
+				return currentList.map(f => (f.id === activeFriend.id ? { ...activeFriend, debts: f.debts + balance } : f))
 			})
 			clearActiveFriend()
 		}
