@@ -1,6 +1,6 @@
 import style from './Friends.module.css'
-import { useState } from 'react'
 import { initialFriends } from '../../dummy/data'
+import { useState } from 'react'
 import { FriendsList } from './FriendsList'
 import { FriendWithId } from '../../types/friends'
 import { SplitBill } from '../SplitBill/SplitBill'
@@ -28,11 +28,13 @@ export function Friends(): React.ReactNode {
 		setFriendsData(currentFriends => [...currentFriends, newFriend])
 	}
 
-	const updateFriendHandler = (myFriend: FriendWithId): void => {
-		const updatedFriendsList = friendsData.map(f => {
-			return f.id === myFriend.id ? myFriend : f
-		})
-		setFriendsData(updatedFriendsList)
+	const splitBillHandler = (balance: number): void => {
+		if (activeFriend) {
+			setFriendsData(currentList => {
+				return currentList.map(f => (f.id === activeFriend.id ? { ...activeFriend, debts: balance } : f))
+			})
+			clearActiveFriend()
+		}
 	}
 
 	return (
@@ -45,7 +47,7 @@ export function Friends(): React.ReactNode {
 			/>
 			{activeFriend && (
 				<div>
-					<SplitBill friend={activeFriend} onUpdateFriend={updateFriendHandler} clearActiveFriend={clearActiveFriend} />
+					<SplitBill friend={activeFriend} onSplitBill={splitBillHandler} />
 				</div>
 			)}
 		</div>

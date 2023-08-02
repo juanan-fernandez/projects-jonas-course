@@ -4,11 +4,10 @@ import { SetStateAction, useState } from 'react'
 
 interface SplitBillProps {
 	friend: FriendWithId
-	onUpdateFriend: (friend: FriendWithId) => void
-	clearActiveFriend: () => void
+	onSplitBill: (balance: number) => void
 }
 
-export function SplitBill({ friend, onUpdateFriend, clearActiveFriend }: SplitBillProps): JSX.Element {
+export function SplitBill({ friend, onSplitBill }: SplitBillProps): JSX.Element {
 	const [billAmount, setBillAmount] = useState<SetStateAction<number>>(0)
 	const [yourExpense, setYourExpense] = useState<SetStateAction<number>>(0)
 	const [whoPays, setWhoPays] = useState(1)
@@ -40,9 +39,7 @@ export function SplitBill({ friend, onUpdateFriend, clearActiveFriend }: SplitBi
 			result = friend.debts - expense
 		}
 
-		const updatedFriend = { ...friend, debts: result }
-		onUpdateFriend(updatedFriend)
-		clearActiveFriend()
+		onSplitBill(result)
 	}
 
 	return (
