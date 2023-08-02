@@ -5,11 +5,10 @@ import { SetStateAction } from 'react'
 interface FriendItemProps {
 	friend: FriendWithId
 	selectFriend: () => void
-	clearFriend: () => void
 	isSelected: boolean
 	showAddForm: React.Dispatch<SetStateAction<boolean>>
 }
-export function FriendItem({ friend, selectFriend, clearFriend, isSelected, showAddForm }: FriendItemProps): React.ReactNode {
+export function FriendItem({ friend, selectFriend, isSelected, showAddForm }: FriendItemProps): React.ReactNode {
 	//const [isSelected, setIsSelected] = useState(false)
 
 	let result = ''
@@ -28,11 +27,7 @@ export function FriendItem({ friend, selectFriend, clearFriend, isSelected, show
 
 	const isSelectedHandler = (): void => {
 		showAddForm(false)
-		if (isSelected) {
-			clearFriend()
-		} else {
-			selectFriend()
-		}
+		selectFriend()
 	}
 
 	return (

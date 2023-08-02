@@ -15,12 +15,17 @@ export function Friends(): React.ReactNode {
 		setActiveFriendId('')
 	}
 	const activeFriendHandler = (active: FriendWithId): void => {
+		if (activeFriend && activeFriend.id === active.id) {
+			clearActiveFriend()
+			return
+		}
 		setActiveFriend(active)
 		setActiveFriendId(active.id)
 	}
 
 	const addFriendToListHandler = (newFriend: FriendWithId): void => {
-		setFriendsData([...friendsData, newFriend])
+		//setFriendsData([...friendsData, newFriend])
+		setFriendsData(currentFriends => [...currentFriends, newFriend])
 	}
 
 	const updateFriendHandler = (myFriend: FriendWithId): void => {
@@ -36,7 +41,6 @@ export function Friends(): React.ReactNode {
 				friendsData={friendsData}
 				onActivateFriend={activeFriendHandler}
 				onAddNewFriendToList={addFriendToListHandler}
-				clearActiveFriend={clearActiveFriend}
 				selectedFriendId={activeFriendId}
 			/>
 			{activeFriend && (
