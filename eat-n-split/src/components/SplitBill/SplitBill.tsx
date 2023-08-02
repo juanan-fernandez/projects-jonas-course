@@ -14,7 +14,7 @@ export function SplitBill({ friend, onUpdateFriend, clearActiveFriend }: SplitBi
 	const [whoPays, setWhoPays] = useState(1)
 
 	const billAmountChangeHandler = (ev: React.ChangeEvent<HTMLInputElement>): void => {
-		if (!Number.isNaN(ev.target.value)) setBillAmount(parseInt(ev.currentTarget.value))
+		if (!Number.isNaN(ev.target.value)) setBillAmount(parseInt(ev.target.value))
 	}
 
 	const yourExpenseChangeHandler = (ev: React.ChangeEvent<HTMLInputElement>): void => {
