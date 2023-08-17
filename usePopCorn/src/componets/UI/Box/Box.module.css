@@ -1,0 +1,43 @@
+.box {
+	display: flex;
+	flex-direction: column;
+	background-color: #2b3035;
+	min-height: 7vh;
+	border-radius: 12px;
+	transition: height 3.5s;
+}
+
+.box.extended {
+	height: 90vh;
+}
+
+.box__header {
+	align-self: flex-end;
+	height: 4vh;
+}
+
+.box__header button {
+	border-radius: 50%;
+	padding: 0.8rem;
+	background-color: #212529;
+	color: white;
+	font-weight: 700;
+	font-size: 1.2rem;
+	cursor: pointer;
+	border: none;
+	height: 2.2rem;
+	width: 2.2rem;
+	margin: 0.4rem 0.4rem 0.4rem auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.box__content {
+	display: grid;
+}
+
+.viewcontent {
+	text-align: center;
+	margin: 1rem auto;
+}

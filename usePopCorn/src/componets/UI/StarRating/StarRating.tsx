@@ -1,38 +1,102 @@
-const starsContainer = {
+import { useState } from 'react';
+
+const starRatingContainer = {
 	display: 'flex',
 	alignItems: 'center',
-	gap: '16px'
+	gap: '1.3rem'
+};
+
+const starsContainer = {
+	display: 'flex',
+	gap: '2px'
 };
 
 interface StarRatingProps {
+	defaultRating?: number;
 	maxRating: number;
 	size?: number;
 	color?: string;
 }
 
-export default function StarRating({ maxRating = 5, size = 48, color = '#fcc419' }: StarRatingProps): JSX.Element {
+export default function StarRating({
+	defaultRating = 0,
+	maxRating = 5,
+	size = 48,
+	color = '#fcc419'
+}: StarRatingProps): JSX.Element {
+	const [rating, setRating] = useState(defaultRating);
+	const [tempRating, setTempRating] = useState(0);
+
+	const textStyle = {
+		margin: '0',
+		fontSize: `${size / 1.5}px`,
+		width: '2rem',
+		color: color
+	};
+
+	const handleRating = (rate: number): void => {
+		setRating(rate);
+	};
+
+	const enterMouseHandler = (starIndex: number): void => {
+		setTempRating(starIndex);
+	};
+
 	return (
-		<div style={starsContainer}>
-			{Array.from({ length: maxRating }, (_, i) => {
-				return <Star key={`star-${i}`} size={size} color={color} />;
-			})}
+		<div style={starRatingContainer}>
+			<div style={starsContainer}>
+				{Array.from({ length: maxRating }, (_, i) => {
+					return (
+						<Star
+							key={`star-${i}`}
+							size={size}
+							color={color}
+							onRating={handleRating}
+							idx={i + 1}
+							mouseOver={enterMouseHandler}
+							mouseOut={(): void => setTempRating(0)}
+							filled={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+						/>
+					);
+				})}
+			</div>
+			<p style={textStyle}>{tempRating || rating || ''}</p>
 		</div>
 	);
 }
 
 interface StarProps {
+	idx: number;
 	size: number;
 	color: string;
+	onRating: (starIndex: number) => void;
+	mouseOver: (starIndex: number) => void;
+	mouseOut: () => void;
+	filled: boolean;
 }
 
-function Star({ size, color }: StarProps): JSX.Element {
+function Star({ idx, size, color, onRating, filled, mouseOver, mouseOut }: StarProps): JSX.Element {
 	const style = {
 		width: `${size}px`,
-		heigth: `${size}px`
+		heigth: `${size}px`,
+		cursor: 'pointer'
 	};
 	return (
-		<span role='button' style={style}>
-			<svg id='Capa_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 47.94 47.94' xmlSpace='preserve' fill={color}>
+		<span
+			role='button'
+			style={style}
+			onClick={(): void => onRating(idx)}
+			onMouseEnter={(): void => mouseOver(idx)}
+			onMouseLeave={mouseOut}
+		>
+			<svg
+				id='Capa_1'
+				xmlns='http://www.w3.org/2000/svg'
+				viewBox='0 0 47.94 47.94'
+				xmlSpace='preserve'
+				fill={filled ? color : 'none'}
+				stroke={color}
+			>
 				<path
 					d='M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
 	c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
