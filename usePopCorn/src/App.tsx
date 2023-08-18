@@ -1,12 +1,17 @@
 import './App.css';
-import StarRating from './componets/UI/StarRating/StarRating';
+//import StarRating from './componets/UI/StarRating/StarRating';
 import Box from './componets/UI/Box/Box';
+import { MoviesFetchedList } from './componets/Movies/MoviesFetchedList/MoviesFetchedList';
 
 function App(): JSX.Element {
 	return (
 		<>
-			<StarRating maxRating={10} />
-			<Box>En la b</Box>
+			{
+				//<StarRating maxRating={10} />
+			}
+			<Box>
+				<MoviesFetchedList />
+			</Box>
 		</>
 	);
 }

@@ -1,0 +1,15 @@
+.movie {
+	display: grid;
+	grid-template-columns: 105px 1fr;
+}
+
+.movie img {
+	width: 90px;
+	display: block;
+}
+
+.movie__info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
