@@ -5,11 +5,11 @@
 
 .movie img {
 	width: 90px;
+	height: 120px;
+	object-fit: cover;
 	display: block;
 }
 
 .movie__info {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+	text-align: left;
 }

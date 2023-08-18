@@ -31,11 +31,12 @@ export function useFetchMovies(url: string): fetchMoviesResponse {
 				}
 				requestStatus = response.status;
 				const data = (await response.json()) as SearchMovie;
-				console.log(data.Search);
 				setMovies(data.Search);
 			} catch (err) {
-				console.log('ERROR', err);
-				setTerror({ errMessage: err as string, errCode: requestStatus });
+				if (!controller.signal.aborted) {
+					console.log('ERROR', err);
+					setTerror({ errMessage: err as string, errCode: requestStatus });
+				}
 			} finally {
 				setIsLoading(false);
 			}
@@ -44,7 +45,7 @@ export function useFetchMovies(url: string): fetchMoviesResponse {
 		fetchMovies();
 
 		return () => {
-			//controller.abort();
+			controller.abort();
 		};
 	}, [url]);
 
