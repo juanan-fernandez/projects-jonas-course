@@ -1,15 +1,21 @@
 .movie {
 	display: grid;
-	grid-template-columns: 105px 1fr;
+	grid-template-columns: 90px 1fr;
 }
 
 .movie img {
-	width: 90px;
-	height: 120px;
+	width: 70px;
+	height: 90px;
 	object-fit: cover;
 	display: block;
 }
 
 .movie__info {
 	text-align: left;
+}
+
+.movie__info p {
+	font-weight: 600;
+	display: flex;
+	gap: 0.4rem;
 }

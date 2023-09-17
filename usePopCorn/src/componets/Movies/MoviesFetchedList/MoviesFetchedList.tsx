@@ -1,24 +1,35 @@
 import './MoviesFetchedList.css';
 import { useFetchMovies } from '../../../hooks/useFetchMovies';
 import { MoviesFetchedItem } from './MoviesFetchedItem';
+import { Spinner } from '../../UI/Spinner/Spinner';
 //mport { Movie } from '../../../interfaces/movies';
 
-export function MoviesFetchedList(): JSX.Element {
-	const url = 'https://www.omdbapi.com/?s=Captain&apikey=43aaed69';
+type MoviesFetchedListProps = {
+	onUpdateResults: (res: number) => void;
+	onUpdateMovieId: (id: string) => void;
+	search?: string;
+};
+export function MoviesFetchedList({ onUpdateResults, onUpdateMovieId, search }: MoviesFetchedListProps): JSX.Element {
+	const url = search ? `https://www.omdbapi.com/?s=${search}&apikey=43aaed69` : '';
 	const { movies, terror, isLoading } = useFetchMovies(url);
 
 	let renderOutput: React.ReactNode = null;
 
 	if (isLoading) {
-		renderOutput = <h1>Loading...</h1>;
+		renderOutput = (
+			<div>
+				<Spinner />
+			</div>
+		);
 	}
 
 	if (movies && movies.length > 0) {
-		//console.log('movies', movies);
+		onUpdateResults(movies.length);
+
 		renderOutput = (
 			<ul>
 				{movies.map(item => (
-					<li key={item.imdbID}>
+					<li key={item.imdbID} onClick={(): void => onUpdateMovieId(item.imdbID)}>
 						<MoviesFetchedItem movie={item} />
 					</li>
 				))}

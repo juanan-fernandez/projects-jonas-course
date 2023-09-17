@@ -10,8 +10,11 @@ export function MoviesFetchedItem({ movie }: MoviesFetchedItemProps): JSX.Elemen
 		<article className={style.movie}>
 			<img src={movie.Poster ? movie.Poster : 'https://image.tmdb.org/t/p/w200'} />
 			<div className={style.movie__info}>
-				<p>{movie.Title}</p>
-				<p>{movie.Year}</p>
+				<h3>{movie.Title}</h3>
+				<p>
+					<span>🗓</span>
+					{movie.Year}
+				</p>
 			</div>
 		</article>
 	);

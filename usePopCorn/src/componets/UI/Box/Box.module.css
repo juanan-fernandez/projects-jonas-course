@@ -2,13 +2,16 @@
 	display: flex;
 	flex-direction: column;
 	background-color: #2b3035;
-	min-height: 7vh;
+	height: 85vh;
+	min-height: 9vh;
+	max-width: 30rem;
+	width: 30rem;
 	border-radius: 12px;
-	transition: height 3.5s;
+	overflow: scroll;
 }
 
 .box.extended {
-	height: 90vh;
+	height: 85vh;
 }
 
 .box__header {
@@ -33,9 +36,9 @@
 	align-items: center;
 }
 
-.box__content {
+/* .box__content {
 	display: grid;
-}
+} */
 
 .viewcontent {
 	text-align: center;

@@ -1,5 +1,3 @@
-interface Movie {}
-
 export interface SearchMovie {
 	Response: string;
 	Search: Movie[];
@@ -44,4 +42,12 @@ export interface MovieDetails {
 export interface Rating {
 	Source: string;
 	Value: string;
+}
+
+export interface WatchedMovie {
+	id: string;
+	poster: string;
+	title: string;
+	myRating: number;
+	rating: number;
 }

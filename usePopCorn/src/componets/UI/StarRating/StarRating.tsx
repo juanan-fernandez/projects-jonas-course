@@ -16,13 +16,15 @@ interface StarRatingProps {
 	maxRating: number;
 	size?: number;
 	color?: string;
+	onRating?: (rate: number) => void;
 }
 
 export default function StarRating({
 	defaultRating = 0,
 	maxRating = 5,
 	size = 48,
-	color = '#fcc419'
+	color = '#fcc419',
+	onRating
 }: StarRatingProps): JSX.Element {
 	const [rating, setRating] = useState(defaultRating);
 	const [tempRating, setTempRating] = useState(0);
@@ -36,6 +38,7 @@ export default function StarRating({
 
 	const handleRating = (rate: number): void => {
 		setRating(rate);
+		if (onRating && typeof onRating === 'function') onRating(rate);
 	};
 
 	const enterMouseHandler = (starIndex: number): void => {
