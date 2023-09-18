@@ -1,10 +1,10 @@
-li {
+.list__item {
 	padding: 0.8rem;
 	border-bottom: solid #3f4041 0.08em;
 	cursor: pointer;
 	transition: all ease 0.5s;
 }
 
-li:hover {
+.list__item:hover {
 	background: #343a3f;
 }

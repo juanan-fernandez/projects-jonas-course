@@ -1,0 +1,44 @@
+.watched {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+	padding: 0.8rem 1.4rem;
+	border-bottom: solid #3f4041 0.08em;
+}
+
+.watched img {
+	height: 80px;
+}
+
+.watched__details {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.watched__details--data {
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: flex-start;
+	gap: 1.5rem;
+}
+
+.button__delete {
+	background-color: #e03130;
+	color: black;
+	display: flex;
+	align-items: center;
+	font-size: 0.7rem;
+	font-weight: 700;
+	height: 1.4rem;
+	width: 1.4rem;
+	border-style: none;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all ease 0.4s;
+}
+
+.button__delete:hover {
+	background-color: #ee5d5d;
+}

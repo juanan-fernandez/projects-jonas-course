@@ -2,7 +2,8 @@ import './MoviesFetchedList.css';
 import { useFetchMovies } from '../../../hooks/useFetchMovies';
 import { MoviesFetchedItem } from './MoviesFetchedItem';
 import { Spinner } from '../../UI/Spinner/Spinner';
-//mport { Movie } from '../../../interfaces/movies';
+import { useEffect } from 'react';
+import { ErrorMessage } from '../../UI/ErrorMessage/ErrorMessage';
 
 type MoviesFetchedListProps = {
 	onUpdateResults: (res: number) => void;
@@ -12,8 +13,11 @@ type MoviesFetchedListProps = {
 export function MoviesFetchedList({ onUpdateResults, onUpdateMovieId, search }: MoviesFetchedListProps): JSX.Element {
 	const url = search ? `https://www.omdbapi.com/?s=${search}&apikey=43aaed69` : '';
 	const { movies, terror, isLoading } = useFetchMovies(url);
-
 	let renderOutput: React.ReactNode = null;
+
+	useEffect(() => {
+		movies ? onUpdateResults(movies.length) : onUpdateResults(0);
+	}, [movies]);
 
 	if (isLoading) {
 		renderOutput = (
@@ -24,12 +28,10 @@ export function MoviesFetchedList({ onUpdateResults, onUpdateMovieId, search }: 
 	}
 
 	if (movies && movies.length > 0) {
-		onUpdateResults(movies.length);
-
 		renderOutput = (
 			<ul>
 				{movies.map(item => (
-					<li key={item.imdbID} onClick={(): void => onUpdateMovieId(item.imdbID)}>
+					<li className='list__item' key={item.imdbID} onClick={(): void => onUpdateMovieId(item.imdbID)}>
 						<MoviesFetchedItem movie={item} />
 					</li>
 				))}
@@ -38,9 +40,10 @@ export function MoviesFetchedList({ onUpdateResults, onUpdateMovieId, search }: 
 	}
 
 	if (terror) {
-		console.log(terror);
-		renderOutput = <p>{terror.errMessage}</p>;
+		renderOutput = <ErrorMessage message={terror.errMessage} />;
 	}
+
+	if (!terror && url && (!movies || movies.length === 0)) renderOutput = <ErrorMessage message='MOVIE NOT FOUND' />;
 
 	return <>{renderOutput}</>;
 }

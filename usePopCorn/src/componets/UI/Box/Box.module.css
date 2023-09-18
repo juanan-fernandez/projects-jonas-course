@@ -17,6 +17,7 @@
 .box__header {
 	align-self: flex-end;
 	height: 4vh;
+	margin-bottom: 0.3rem;
 }
 
 .box__header button {

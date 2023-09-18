@@ -24,6 +24,7 @@ export function MovieDetails({ movieId, addMovieToList, goBack }: MovieDetailsPr
 			title: movie?.Title,
 			poster: movie?.Poster,
 			rating: Number(movie?.imdbRating),
+			duration: parseInt(movie?.Runtime),
 			myRating: rateSelected
 		};
 		addMovieToList(watchedMovie);
@@ -44,6 +45,9 @@ export function MovieDetails({ movieId, addMovieToList, goBack }: MovieDetailsPr
 	if (movie) {
 		return (
 			<div className={styles.details}>
+				<button className={styles.goBack} onClick={goBack}>
+					⬅️
+				</button>
 				<header className={styles.movie}>
 					<div className={styles.moviedetails}>
 						<img src={movie.Poster} alt={movie.Title} />

@@ -48,6 +48,7 @@ export interface WatchedMovie {
 	id: string;
 	poster: string;
 	title: string;
+	duration: number;
 	myRating: number;
 	rating: number;
 }

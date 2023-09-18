@@ -10,7 +10,7 @@ import { MoviesWatchedList } from './componets/Movies/MoviesWatchedList/MoviesWa
 import { MoviesFetchedList } from './componets/Movies/MoviesFetchedList/MoviesFetchedList';
 
 function App(): JSX.Element {
-	const [localMovies, setWatchedMovie] = useMoviesStorage();
+	const [localMovies, setWatchedMovie, deleteWatchedMovie] = useMoviesStorage();
 	const [results, setResults] = useState(0);
 	const [movieId, setMovieId] = useState('');
 	const [query, setQuery] = useState('');
@@ -39,7 +39,7 @@ function App(): JSX.Element {
 					{movieId ? (
 						<MovieDetails movieId={movieId} addMovieToList={setWatchedMovie} goBack={clearMovieId} />
 					) : (
-						<MoviesWatchedList movies={localMovies} />
+						<MoviesWatchedList movies={localMovies} deleteMovieFromWatched={deleteWatchedMovie} />
 					)}
 				</Box>
 			</main>
