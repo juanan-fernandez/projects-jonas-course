@@ -10,8 +10,8 @@ export function MoviesWatchedIem({ movie, deleteMovie }: MoviesWatchedIemProps):
 			<div className={styles.watched__details}>
 				<h2>{movie.title}</h2>
 				<div className={styles['watched__details--data']}>
-					<span>⭐️ {movie.rating}</span>
-					<span>🌟 {movie.myRating}</span>
+					<span>⭐️ {movie.rating.toFixed(1)}</span>
+					<span>🌟 {movie.myRating.toFixed(1)}</span>
 					<span>⌛ {movie.duration} min.</span>
 				</div>
 			</div>
