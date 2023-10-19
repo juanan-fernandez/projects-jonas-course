@@ -13,7 +13,7 @@ type MovieDetailsProps = {
 
 export function MovieDetails({ movieId, addMovieToList, goBack }: MovieDetailsProps): JSX.Element | undefined {
 	let url = '';
-	if (movieId) url = `http://www.omdbapi.com/?i=${movieId}&apikey=43aaed69`;
+	if (movieId) url = `https://www.omdbapi.com/?i=${movieId}&apikey=43aaed69`;
 
 	const [rateSelected, setRateSelected] = useState(0);
 	const { movie, terror, isLoading } = useFetchMovieDetails(url);
