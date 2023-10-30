@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
 import { MovieDetails } from '../interfaces/movies';
 
-interface Error {
+type ErrorT = {
 	errMessage: string;
 	errCode?: number;
-}
+} | null;
 
 interface fetchMovieDetailsResponse {
 	movie: MovieDetails;
-	terror: Error | undefined; // if there is an error, it will be stored in this variable. Otherwise undefined (optional)
+	terror: ErrorT | null; // if there is an error, it will be stored in this variable. Otherwise undefined (optional)
 	isLoading: boolean;
 }
 
 export function useFetchMovieDetails(url: string): fetchMovieDetailsResponse {
 	const [movie, setMovie] = useState<MovieDetails>({} as MovieDetails);
 	const [isLoading, setIsLoading] = useState(true);
-	const [terror, setTerror] = useState<Error>();
+	const [terror, setTerror] = useState<ErrorT>(null);
 
 	useEffect(() => {
 		const controller = new AbortController();
 		let requestStatus = 0;
+		setTerror(null);
 
 		async function fetchMovieDetails(): Promise<void> {
 			try {

@@ -16,8 +16,6 @@ export function MoviesWatchedStats({ moviesList }: MoviesWatchedStatsProps): Rea
 		{ numberOfMovies: lenArray, avgRate: 0, avgMyRate: 0, avgDuration: 0 }
 	);
 
-	//console.log(avg);
-
 	return (
 		<section className={styles.stats}>
 			<h3>MOVIES YOU WATCHED</h3>
