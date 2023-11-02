@@ -2,7 +2,7 @@ import styles from './MovieDetails.module.css';
 import { useFetchMovieDetails } from '../../../hooks/useFetchMovieDetails';
 import StarRating from '../../UI/StarRating/StarRating';
 import { Spinner } from '../../UI/Spinner/Spinner';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { WatchedMovie } from '../../../interfaces/movies';
 
 type MovieDetailsProps = {
@@ -17,6 +17,17 @@ export function MovieDetails({ movieId, addMovieToList, goBack }: MovieDetailsPr
 
 	const [rateSelected, setRateSelected] = useState(0);
 	const { movie, terror, isLoading } = useFetchMovieDetails(url);
+
+	useEffect(
+		function () {
+			if (!movie.Title) return;
+			document.title = `MOVIE ${movie.Title}`;
+			return () => {
+				document.title = 'Popcorn';
+			};
+		},
+		[movie.Title]
+	);
 
 	const handleAddMovieToWatched = (): void => {
 		const watchedMovie: WatchedMovie = {
