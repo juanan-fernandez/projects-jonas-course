@@ -30,7 +30,7 @@ function App(): JSX.Element {
 
 	return (
 		<>
-			<Header results={results} query={query} setQuery={setQuery} />
+			<Header results={results} query={query} setQuery={setQuery} closeMovieDetails={clearMovieId} />
 			<main className='boxes'>
 				<Box>
 					<MoviesFetchedList onUpdateResults={updateResults} onUpdateMovieId={updateMovieId} search={deferredQuery} />

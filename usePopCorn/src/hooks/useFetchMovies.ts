@@ -46,7 +46,12 @@ export function useFetchMovies(url: string): fetchMoviesResponse {
 			}
 		}
 
-		url ? fetchMovies() : setIsLoading(false);
+		function resetMovies(): void {
+			setMovies([]);
+			setIsLoading(false);
+		}
+
+		url ? fetchMovies() : resetMovies();
 
 		return () => {
 			controller.abort();

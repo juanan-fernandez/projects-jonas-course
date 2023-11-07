@@ -1,5 +1,6 @@
 import styles from './MovieDetails.module.css';
 import { useFetchMovieDetails } from '../../../hooks/useFetchMovieDetails';
+import { useKey } from '../../../hooks/useKey';
 import StarRating from '../../UI/StarRating/StarRating';
 import { Spinner } from '../../UI/Spinner/Spinner';
 import { useEffect, useState } from 'react';
@@ -16,7 +17,8 @@ export function MovieDetails({ movieId, addMovieToList, goBack }: MovieDetailsPr
 	if (movieId) url = `https://www.omdbapi.com/?i=${movieId}&apikey=43aaed69`;
 
 	const [rateSelected, setRateSelected] = useState(0);
-	const { movie, terror, isLoading } = useFetchMovieDetails(url);
+	const { movie, terror, isLoading } = useFetchMovieDetails(url); //get data from the movie
+	useKey('Escape', goBack);
 
 	useEffect(
 		function () {
