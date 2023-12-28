@@ -1,0 +1,15 @@
+.header {
+	display: flex;
+	gap: 2rem;
+	justify-content: center;
+	align-items: center;
+	margin: 2rem auto;
+}
+.title {
+	font-family: 'Codystar', 'Courier New';
+	font-size: 4.5vw;
+}
+
+.header img {
+	height: 6vw;
+}

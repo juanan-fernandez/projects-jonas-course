@@ -1,0 +1,29 @@
+.stats {
+	color: var(--color-medium);
+	display: flex;
+	justify-content: space-between;
+}
+
+.stats p {
+	font-size: 1.1rem;
+	font-weight: 700;
+}
+
+progress {
+	-web-kit-appearance: none;
+	appearance: none;
+	width: 100%;
+	margin-bottom: 0.7rem;
+}
+
+progress[value]::-webkit-progress-bar {
+	background-color: var(--color-medium);
+	border-radius: 8px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+progress[value]::-webkit-progress-value {
+	background-color: var(--color-theme);
+	border-radius: 8px;
+	background-size: 35px 20px, 100% 100%, 100% 100%;
+}
