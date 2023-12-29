@@ -4,18 +4,18 @@ import { useReducer } from 'react';
 import { quizzReducer, quizzInitialState } from './reducers/quizzreducer';
 import { useQuizzData } from './hooks/useQuizzData';
 import { Spinner } from './components/UI/Spinner/Spinner';
-import './App.css';
 import { Header } from './components/Header/Header';
 import { StartScreen } from './components/StartScreen/StartScreen';
 import { ErrorMessage } from './components/UI/ErrorMessage/ErrorMessage';
 import { Game } from './components/Game/Game';
 import { QuestionType } from './interfaces/quizz';
 import { Progress } from './components/Progress/Progress';
+import { Question } from './components/Question/Question';
 
 function App() {
 	const url = 'http://localhost:9000/questions';
 	const [state, dispatch] = useReducer(quizzReducer, quizzInitialState);
-	const { questions, index, status, currentPoints, terror } = state;
+	const { questions, index, status, currentPoints, answer, terror } = state;
 	useQuizzData(url, dispatch);
 
 	function getMaxPoints(): number {
@@ -44,6 +44,7 @@ function App() {
 						maxPoints={getMaxPoints()}
 						numOfQuestions={numOfQuestions}
 					/>
+					<Question question={questions[index]} answer={answer} dispatch={dispatch} />
 				</Game>
 			)}
 		</div>
