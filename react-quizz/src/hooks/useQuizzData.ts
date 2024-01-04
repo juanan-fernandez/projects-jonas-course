@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { QuestionType } from '../interfaces/quizz';
-import { ActionsTypes, QuizzLoadAction, QuizzErrAction } from '../reducers/quizzreducer';
+import { ActionsTypes, QuizzLoadAction, QuizzErrAction, QuizzReLoadAction } from '../reducers/quizzreducer';
 
 // type fetchQuizzResponse = {
 // 	msgerror: string;
@@ -8,7 +8,11 @@ import { ActionsTypes, QuizzLoadAction, QuizzErrAction } from '../reducers/quizz
 // 	quizz: QuestionType[];
 // };
 
-export function useQuizzData(url: string, dispatch: (action: QuizzLoadAction | QuizzErrAction) => void): void {
+export function useQuizzData(
+	url: string,
+	round: number,
+	dispatch: (action: QuizzLoadAction | QuizzErrAction | QuizzReLoadAction) => void
+): void {
 	useEffect(() => {
 		let requestStatus = 0;
 		const controller = new AbortController();
@@ -28,7 +32,9 @@ export function useQuizzData(url: string, dispatch: (action: QuizzLoadAction | Q
 				}
 
 				const data = (await response.json()) as QuestionType[];
-				dispatch({ type: ActionsTypes.LOAD, payload: data });
+				round > 0
+					? dispatch({ type: ActionsTypes.RELOAD, payload: data })
+					: dispatch({ type: ActionsTypes.LOAD, payload: data });
 			} catch (err) {
 				if (err instanceof Error) {
 					dispatch({ type: ActionsTypes.ERROR, payload: { errMessage: err.message, errCode: requestStatus } });
@@ -42,5 +48,5 @@ export function useQuizzData(url: string, dispatch: (action: QuizzLoadAction | Q
 		return () => {
 			controller.abort();
 		};
-	}, [url]);
+	}, [url, round]);
 }

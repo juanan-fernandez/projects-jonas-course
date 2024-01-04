@@ -11,12 +11,16 @@ import { Game } from './components/Game/Game';
 import { QuestionType } from './interfaces/quizz';
 import { Progress } from './components/Progress/Progress';
 import { Question } from './components/Question/Question';
+import { NextButton } from './components/NextButton/NextButton';
+import { Footer } from './components/Footer/Footer';
+import { Timer } from './components/Timer/Timer';
+import { EndScreen } from './components/EndScreen/EndScreen';
 
 function App() {
 	const url = 'http://localhost:9000/questions';
 	const [state, dispatch] = useReducer(quizzReducer, quizzInitialState);
-	const { questions, index, status, currentPoints, answer, terror } = state;
-	useQuizzData(url, dispatch);
+	const { questions, index, status, currentPoints, answer, secondsRemaining, highScore, round, terror } = state;
+	useQuizzData(url, round, dispatch);
 
 	function getMaxPoints(): number {
 		const questionAux = questions.reduce(
@@ -29,6 +33,8 @@ function App() {
 	}
 
 	const numOfQuestions = questions.length;
+
+	//console.log(state);
 
 	return (
 		<div className='app'>
@@ -45,7 +51,16 @@ function App() {
 						numOfQuestions={numOfQuestions}
 					/>
 					<Question question={questions[index]} answer={answer} dispatch={dispatch} />
+					<Footer>
+						<Timer dispatch={dispatch} secsRemaining={secondsRemaining} />
+						{answer !== null && (
+							<NextButton currentIndex={index} answer={answer} numberOfQuestions={numOfQuestions} dispatch={dispatch} />
+						)}
+					</Footer>
 				</Game>
+			)}
+			{status === 'complete' && (
+				<EndScreen points={currentPoints} maxPoints={getMaxPoints()} dispatch={dispatch} highScore={highScore} />
 			)}
 		</div>
 	);

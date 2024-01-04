@@ -7,7 +7,9 @@ export enum ActionsTypes {
 	TICK = 'TICK',
 	ANSWER = 'ANSWER',
 	NEXT = 'NEXT',
-	FINISH = 'FINISH'
+	FINISH = 'FINISH',
+	RESTART = 'RESTART',
+	RELOAD = 'RELOAD'
 }
 
 const MAX_SECONDS_PER_QUESTION = 30;
@@ -22,7 +24,9 @@ export const quizzInitialState: QuizzState = {
 	currentPoints: 0,
 	answer: null,
 	terror: undefined,
-	secondsRemaining: 0
+	secondsRemaining: 0,
+	highScore: 0,
+	round: 0
 };
 
 type QuizzState = {
@@ -32,6 +36,8 @@ type QuizzState = {
 	currentPoints: number;
 	answer: number | null;
 	secondsRemaining: number;
+	highScore: number;
+	round: number;
 	terror: qError;
 };
 
@@ -42,6 +48,8 @@ export type QuizzAnswerAction = { type: ActionsTypes.ANSWER; payload: number };
 export type QuizzNextAction = { type: ActionsTypes.NEXT };
 export type QuizzFinishAction = { type: ActionsTypes.FINISH };
 export type QuizzTickAction = { type: ActionsTypes.TICK };
+export type QuizzReStartAction = { type: ActionsTypes.RESTART };
+export type QuizzReLoadAction = { type: ActionsTypes.RELOAD; payload: QuestionType[] };
 
 type quizzAction =
 	| QuizzLoadAction
@@ -50,7 +58,9 @@ type quizzAction =
 	| QuizzTickAction
 	| QuizzAnswerAction
 	| QuizzNextAction
-	| QuizzFinishAction;
+	| QuizzFinishAction
+	| QuizzReStartAction
+	| QuizzReLoadAction;
 
 export function quizzReducer(state: QuizzState, action: quizzAction): QuizzState {
 	switch (action.type) {
@@ -79,6 +89,23 @@ export function quizzReducer(state: QuizzState, action: quizzAction): QuizzState
 
 		case ActionsTypes.FINISH:
 			return { ...state, status: 'complete' };
+
+		case ActionsTypes.RESTART: {
+			const maxScore = state.highScore > state.currentPoints ? state.highScore : state.currentPoints;
+			return {
+				...quizzInitialState,
+				highScore: maxScore,
+				round: state.round + 1
+			};
+		}
+
+		case ActionsTypes.RELOAD:
+			return {
+				...state,
+				questions: action.payload,
+				status: 'active',
+				secondsRemaining: MAX_SECONDS_PER_QUESTION * action.payload.length
+			};
 
 		default:
 			return state;

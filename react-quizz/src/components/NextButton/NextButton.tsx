@@ -8,8 +8,16 @@ type NextButtonProps = {
 };
 export function NextButton({ currentIndex, answer, numberOfQuestions, dispatch }: NextButtonProps) {
 	const goNext = () => {
-		currentIndex + 1 === numberOfQuestions ? dispatch({ type: ActionsTypes.NEXT }) : dispatch({ type: ActionsTypes.FINISH });
+		currentIndex + 1 === numberOfQuestions ? dispatch({ type: ActionsTypes.FINISH }) : dispatch({ type: ActionsTypes.NEXT });
 	};
 
-	return <>{answer && <button onClick={goNext}>{currentIndex + 1 === numberOfQuestions ? 'Finish Quizz' : 'Next'}</button>}</>;
+	return (
+		<>
+			{answer === null ? (
+				''
+			) : (
+				<button onClick={goNext}>{currentIndex + 1 === numberOfQuestions ? 'Finish Quizz' : 'Next'}</button>
+			)}
+		</>
+	);
 }

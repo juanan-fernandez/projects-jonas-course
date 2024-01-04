@@ -1,0 +1,27 @@
+.section {
+	margin: 0 auto;
+}
+
+.score {
+	background-color: var(--color-theme);
+	font-size: 1.2rem;
+	color: var(--color-light);
+	border-radius: 50px;
+	margin: 1rem auto;
+	width: 60%;
+	padding: 1rem;
+	font-size: 1.3rem;
+	font-weight: 700;
+	text-align: center;
+}
+
+.highscore {
+	padding: 1rem;
+	text-align: center;
+	font-weight: 700;
+}
+
+.btn {
+	width: 90%;
+	text-align: right;
+}

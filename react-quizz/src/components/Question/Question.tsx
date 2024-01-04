@@ -7,10 +7,12 @@ type QuestionProps = {
 	dispatch: (action: QuizzAnswerAction) => void;
 };
 
+const style = { fontSize: '1.4rem', fontWeight: 700, margin: '1rem 0' };
+
 export function Question({ question, dispatch, answer }: QuestionProps) {
 	return (
-		<section className='container'>
-			<p>{question.question}</p>
+		<section>
+			<p style={style}>{question.question}</p>
 			<Options question={question} dispatch={dispatch} answer={answer} />
 		</section>
 	);
