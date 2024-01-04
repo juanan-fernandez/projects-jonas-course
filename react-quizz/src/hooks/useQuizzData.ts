@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { QuestionType } from '../interfaces/quizz';
+import { TriviaQuizz } from '../interfaces/trivia';
 import { ActionsTypes, QuizzLoadAction, QuizzErrAction, QuizzReLoadAction } from '../reducers/quizzreducer';
 
 // type fetchQuizzResponse = {
@@ -7,6 +8,8 @@ import { ActionsTypes, QuizzLoadAction, QuizzErrAction, QuizzReLoadAction } from
 // 	loading: boolean;
 // 	quizz: QuestionType[];
 // };
+
+function transformData(data: TriviaQuizz): QuestionType[] {}
 
 export function useQuizzData(
 	url: string,

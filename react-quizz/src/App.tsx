@@ -34,8 +34,6 @@ function App() {
 
 	const numOfQuestions = questions.length;
 
-	//console.log(state);
-
 	return (
 		<div className='app'>
 			<Header />
