@@ -17,7 +17,8 @@ import { Timer } from './components/Timer/Timer';
 import { EndScreen } from './components/EndScreen/EndScreen';
 
 function App() {
-	const url = 'http://localhost:9000/questions';
+	//const url = 'http://localhost:9000/questions';
+	const url = 'https://the-trivia-api.com/v2/questions?limit=10&difficulties=easy&types=text_choice';
 	const [state, dispatch] = useReducer(quizzReducer, quizzInitialState);
 	const { questions, index, status, currentPoints, answer, secondsRemaining, highScore, round, terror } = state;
 	useQuizzData(url, round, dispatch);

@@ -9,7 +9,20 @@ import { ActionsTypes, QuizzLoadAction, QuizzErrAction, QuizzReLoadAction } from
 // 	quizz: QuestionType[];
 // };
 
-function transformData(data: TriviaQuizz): QuestionType[] {}
+function transformData(data: TriviaQuizz[]): QuestionType[] {
+	const quizz: QuestionType[] = data.map(q => {
+		const questionQuestion = { question: q.question.text, points: 10 };
+
+		const questionOptions = [...q.incorrectAnswers, q.correctAnswer].sort((a, b) => {
+			return Math.floor(Math.random() * a.length) - Math.floor(Math.random() * b.length);
+		});
+
+		const correctAnswer = questionOptions.findIndex(answer => answer === q.correctAnswer);
+
+		return { ...questionQuestion, options: questionOptions, correctOption: correctAnswer };
+	});
+	return quizz;
+}
 
 export function useQuizzData(
 	url: string,
@@ -34,7 +47,8 @@ export function useQuizzData(
 					throw new Error('Error fetching data from Url');
 				}
 
-				const data = (await response.json()) as QuestionType[];
+				const triviaData = (await response.json()) as TriviaQuizz[];
+				const data = transformData(triviaData);
 				round > 0
 					? dispatch({ type: ActionsTypes.RELOAD, payload: data })
 					: dispatch({ type: ActionsTypes.LOAD, payload: data });

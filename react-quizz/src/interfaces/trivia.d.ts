@@ -5,7 +5,7 @@ export interface TriviaQuizz {
 	id: string;
 	incorrectAnswers: string[];
 	isNiche: boolean;
-	question: Question;
+	question: { text: string };
 	regions: string[];
 	tags: string[];
 	type: Type;
