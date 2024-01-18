@@ -9,7 +9,7 @@ export function Timer({ dispatch, secsRemaining }: TimerProps) {
 			dispatch({ type: ActionsTypes.TICK });
 		}, 1000);
 		return () => clearInterval(timer);
-	});
+	}, []);
 
 	const getRemainTime = (time: number) => {
 		const minutes = Math.floor(time / 60);
