@@ -1,29 +1,20 @@
+import { Logo } from '../Logo/Logo'
 import styles from './Navbar.module.css'
 import { NavLink } from 'react-router-dom'
 
 export function NavBar(): React.JSX.Element {
 	return (
-		<nav className={styles.menu}>
+		<nav className={styles.nav}>
+			<Logo />
 			<ul>
 				<li>
-					<NavLink to='/' className={({ isActive }) => (isActive ? styles.active : '')}>
-						<img src='logo.png' />
-					</NavLink>
+					<NavLink to='/pricing'>PRICING</NavLink>
 				</li>
 				<li>
-					<NavLink to='/pricing' className={({ isActive }) => (isActive ? styles.active : '')}>
-						PRICING
-					</NavLink>
+					<NavLink to='/product'>PRODUCT</NavLink>
 				</li>
 				<li>
-					<NavLink to='/product' className={({ isActive }) => (isActive ? styles.active : '')}>
-						PRODUCT
-					</NavLink>
-				</li>
-				<li>
-					<NavLink to='/login' className={({ isActive }) => (isActive ? styles.active : '')}>
-						LOGIN
-					</NavLink>
+					<NavLink to='/login'>LOGIN</NavLink>
 				</li>
 			</ul>
 		</nav>

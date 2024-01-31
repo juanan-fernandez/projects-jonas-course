@@ -1,0 +1,38 @@
+.homepage {
+	background-image: linear-gradient(rgba(36, 42, 46, 0.8), rgba(36, 42, 46, 0.8)), url('/bg.jpg');
+	background-position: center;
+	background-size: cover;
+}
+
+.homepage section {
+	margin: 6rem auto;
+	width: clamp(60dww, 80%, 1000px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2.5rem;
+	height: 85%;
+}
+.homepage h1 {
+	line-height: 1.8rem;
+}
+
+.homepage h3 {
+	color: var(--color-light--1);
+	margin: 0 auto;
+	width: 90%;
+	text-align: center;
+}
+
+.cta,
+.cta:visited {
+	text-transform: uppercase;
+	color: var(--color-dark--1);
+	padding: 0.8rem 2rem;
+	background-color: var(--color-brand--2);
+	border-radius: 5px;
+	display: inline-block;
+	font-weight: 600;
+	width: auto;
+}

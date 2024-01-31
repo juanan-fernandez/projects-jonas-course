@@ -1,0 +1,21 @@
+.pricing img {
+	width: 100%;
+}
+
+.pricing section {
+	margin: 5rem auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 4rem;
+	width: clamp(60dvw, 80%, 900px);
+}
+
+.pricing h2 {
+	font-size: 2.7rem;
+	margin-bottom: 3rem;
+	line-height: 1.2;
+}
+
+.pricing p {
+	margin-bottom: 1.5rem;
+}

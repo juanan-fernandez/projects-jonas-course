@@ -1,0 +1,21 @@
+.product section {
+	width: clamp(60dvh, 80%, 900px);
+	margin: 5rem auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 4rem;
+}
+
+.product img {
+	width: 100%;
+}
+
+.product h2 {
+	font-size: 2.7rem;
+	margin-bottom: 3rem;
+	line-height: 1.2;
+}
+
+.product p {
+	margin-bottom: 1.5rem;
+}
