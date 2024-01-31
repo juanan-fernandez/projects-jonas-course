@@ -1,0 +1,30 @@
+.loginpage section {
+	margin: 5rem auto;
+	width: clamp(35vw, 60vw, 55rem);
+	display: flex;
+	justify-content: center;
+}
+
+.loginpage form {
+	background-color: var(--color-dark--2);
+	border-radius: 12px;
+	padding: 1rem 2rem;
+	width: 70%;
+}
+
+.loginpage form button {
+	border-radius: 7px;
+	background-color: var(--color-brand--2);
+	color: var(--color-dark--2);
+	padding: 0.5rem 0.8rem;
+	outline: none;
+	border: 0px;
+	font-size: 1.1rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.row {
+	padding: 0.6rem 0;
+}

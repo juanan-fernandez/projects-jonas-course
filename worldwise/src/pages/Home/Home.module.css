@@ -5,17 +5,16 @@
 }
 
 .homepage section {
-	margin: 6rem auto;
-	width: clamp(60dww, 80%, 1000px);
 	display: flex;
 	flex-direction: column;
+	height: 80dvh;
 	justify-content: center;
 	align-items: center;
 	gap: 2.5rem;
-	height: 85%;
 }
 .homepage h1 {
-	line-height: 1.8rem;
+	line-height: clamp(3rem, 1.5rem, 2rem);
+	text-align: center;
 }
 
 .homepage h3 {
@@ -34,5 +33,4 @@
 	border-radius: 5px;
 	display: inline-block;
 	font-weight: 600;
-	width: auto;
 }

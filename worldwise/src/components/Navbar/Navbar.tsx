@@ -8,13 +8,19 @@ export function NavBar(): React.JSX.Element {
 			<Logo />
 			<ul>
 				<li>
-					<NavLink to='/pricing'>PRICING</NavLink>
+					<NavLink to='/pricing' className={({ isActive }) => (isActive ? `${styles.active}` : '')}>
+						PRICING
+					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/product'>PRODUCT</NavLink>
+					<NavLink to='/product' className={({ isActive }) => (isActive ? `${styles.active}` : '')}>
+						PRODUCT
+					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/login'>LOGIN</NavLink>
+					<NavLink to='/login' className={styles.login}>
+						LOGIN
+					</NavLink>
 				</li>
 			</ul>
 		</nav>
