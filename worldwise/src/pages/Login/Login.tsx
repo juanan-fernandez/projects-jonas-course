@@ -13,7 +13,7 @@ export function Login() {
 
 	const formSubmitHandler = (ev: React.FormEvent<HTMLFormElement>) => {
 		ev.preventDefault()
-		if (login.email && login.password) useAuth
+		if (login.email && login.password) return //ojo con esto
 	}
 
 	return (
