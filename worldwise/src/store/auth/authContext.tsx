@@ -2,9 +2,10 @@ import { authReducer, authActionKind, authState, initialAuthState } from './auth
 import { ReactNode, createContext, useReducer } from 'react'
 
 type authCtxType = {
-	loginData: authState
-	logIn: () => void
-	logOut: () => void
+	isAuth: authState['isAuth']
+	user: authState['user']
+	logIn?: (email: string, password: string) => void
+	logOut?: () => void
 }
 
 const FAKE_USER = {
@@ -13,13 +14,19 @@ const FAKE_USER = {
 	avatar: 'https://robohash.org/elver.galarga@gmail.com'
 }
 
-export const AuthContext = createContext<authCtxType | null>(null)
+const initialAuthCtx = { isAuth: false, user: null }
 
-export function useAuth() {
+export const AuthContext = createContext<authCtxType>(initialAuthCtx)
+
+export function useAuthReducer() {
 	const [state, dispatch] = useReducer(authReducer, initialAuthState)
 
-	const logIn = (): void => {
-		dispatch({ type: authActionKind.LOG_IN, payload: FAKE_USER })
+	const logIn = (email: string, password: string): void => {
+		console.log('paso por login', email, password)
+
+		if (email === 'juanicoylosdelacueva@gmail.com' && password === 'enlab') {
+			dispatch({ type: authActionKind.LOG_IN, payload: FAKE_USER })
+		}
 	}
 
 	const logOut = (): void => {
@@ -29,7 +36,8 @@ export function useAuth() {
 	return { state, logIn, logOut }
 }
 
-export function contextProvider({ children }: { children: ReactNode }) {
-	const { state, logIn, logOut } = useAuth()
-	return <AuthContext.Provider value={{ loginData: state, logIn, logOut }}>{children}</AuthContext.Provider>
+export function AuthContextProvider({ children }: { children: ReactNode }) {
+	const { state, logIn, logOut } = useAuthReducer()
+	const { isAuth, user } = state
+	return <AuthContext.Provider value={{ isAuth, user, logIn, logOut }}>{children}</AuthContext.Provider>
 }

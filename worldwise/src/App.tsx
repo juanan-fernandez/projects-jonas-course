@@ -3,16 +3,22 @@ import { Home } from './pages/Home/Home'
 import { Product } from './pages/Product/Product'
 import { Pricing } from './pages/Pricing/Pricing'
 import { Login } from './pages/Login/Login'
+import { AuthContextProvider } from './store/auth/authContext'
+import { NotFound } from './pages/NotFound/NotFound'
+import { AppLayout } from './pages/AppLayout/AppLayout'
 
 function App(): React.JSX.Element {
 	return (
-		<Routes>
-			<Route path='/' element={<Home />} />
-			<Route path='/pricing' element={<Pricing />} />
-			<Route path='/product' element={<Product />} />
-			<Route path='/login' element={<Login />} />
-			<Route path='*' element={<Home />} />
-		</Routes>
+		<AuthContextProvider>
+			<Routes>
+				<Route path='/' element={<Home />} />
+				<Route path='/pricing' element={<Pricing />} />
+				<Route path='/product' element={<Product />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/app' element={<AppLayout />} />
+				<Route path='*' element={<NotFound />} />
+			</Routes>
+		</AuthContextProvider>
 	)
 }
 
