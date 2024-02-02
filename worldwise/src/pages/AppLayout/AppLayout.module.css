@@ -1,4 +1,19 @@
 .layout {
+	position: relative;
 	display: grid;
 	grid-template-columns: 1fr 2fr;
+	padding: 0rem;
+	overscroll-behavior-y: none;
+}
+
+.floating {
+	position: relative;
+}
+
+.floatbutton {
+	position: absolute;
+	top: calc(100dvh - 8rem);
+	left: calc(60dvw);
+
+	z-index: 401;
 }

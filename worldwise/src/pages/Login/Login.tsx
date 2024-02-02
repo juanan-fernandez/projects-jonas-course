@@ -3,6 +3,7 @@ import { useAuth } from '../../store/auth/useAuth'
 import { NavBar } from '../../components/Navbar/Navbar'
 import styles from './Login.module.css'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '../../components/Button/Button'
 export function Login() {
 	const [login, setLogin] = useState({ email: 'juanicoylosdelacueva@gmail.com', password: 'enlab' })
 
@@ -55,7 +56,7 @@ export function Login() {
 						/>
 					</div>
 					<div className={styles.row}>
-						<button type='submit'>Login</button>
+						<Button>Login</Button>
 					</div>
 				</form>
 			</section>

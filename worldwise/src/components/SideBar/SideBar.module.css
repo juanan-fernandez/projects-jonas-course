@@ -1,0 +1,12 @@
+.sidebar {
+	margin-top: 3rem;
+	padding: 1rem;
+}
+
+.sidebar p {
+	text-align: center;
+	font-weight: 700;
+	font-size: 1.1rem;
+	display: inline-block;
+	margin: 0.3 1rem;
+}

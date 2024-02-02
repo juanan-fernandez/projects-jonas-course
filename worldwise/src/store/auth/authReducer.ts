@@ -4,7 +4,7 @@ export enum authActionKind {
 	LOG_OUT = 'LOGOUT'
 }
 
-type userT = {
+export type userT = {
 	email: string
 	name: string
 	avatar: string
