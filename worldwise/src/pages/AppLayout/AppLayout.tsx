@@ -6,8 +6,9 @@ import { useGeoLocation } from '../../hooks/useGeoLocation'
 
 export function AppLayout() {
 	const { loadingPosition: loading, geolocationPosition, getCurrentPos } = useGeoLocation()
-	console.log(geolocationPosition)
+
 	const showButton = geolocationPosition.lat === 0 && geolocationPosition.lng === 0
+
 	return (
 		<div className={styles.floating}>
 			<main className={styles.layout}>
@@ -17,7 +18,7 @@ export function AppLayout() {
 					)}
 				</div>
 				<SideBar />
-				<Map currentLocation={{ lat: geolocationPosition?.lat, lng: geolocationPosition?.lng }} />
+				<Map currentLocation={geolocationPosition} />
 			</main>
 		</div>
 	)

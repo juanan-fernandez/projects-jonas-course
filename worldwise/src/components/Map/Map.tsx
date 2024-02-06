@@ -1,5 +1,5 @@
-import styles from './Map.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import type { geoLocPosition } from '../../hooks/useGeoLocation'
 import { MapContainer, TileLayer, useMap, useMapEvent, Marker, Popup } from 'react-leaflet'
 
 function GetClickedPoint() {
@@ -10,31 +10,48 @@ function GetClickedPoint() {
 	return null
 }
 
-function GotoClickedPoint() {
+type GotoClickedPointProps = { position: geoLocPosition }
+
+function GotoClickedPoint({ position }: GotoClickedPointProps) {
 	const map = useMap()
-	map.setView([0, 0])
+	map.setView([position.lat, position.lng])
 	return null
 }
 
 type MapProps = {
-	currentLocation?: { lat: number | undefined; lng: number | undefined }
+	currentLocation: geoLocPosition
 }
 
 export function Map({ currentLocation }: MapProps) {
-	const [position, setPosition] = useState()
+	const [mapPosition, setMapPosition] = useState<geoLocPosition>({ lat: 10, lng: 10 })
+	const [mapZoom, setMapZoom] = useState(6)
+	const [marker, setMarker] = useState<geoLocPosition>()
+
+	useEffect(() => {
+		if (currentLocation) {
+			if (currentLocation?.lat !== 0 || currentLocation?.lng !== 0) {
+				setMapPosition({ lat: currentLocation.lat, lng: currentLocation.lng })
+				setMarker({ lat: currentLocation.lat, lng: currentLocation.lng })
+				setMapZoom(25)
+			}
+		}
+	}, [currentLocation.lat, currentLocation.lng])
+
 	return (
-		<MapContainer center={[0, 0]} zoom={6} scrollWheelZoom={true} className={styles.map}>
+		<MapContainer center={[mapPosition?.lat, mapPosition?.lng]} zoom={mapZoom} scrollWheelZoom={true}>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			/>
-			<Marker position={[51.505, -0.09]}>
-				<Popup>
-					A pretty CSS3 popup. <br /> Easily customizable.
-				</Popup>
-			</Marker>
+			{marker && (
+				<Marker position={[marker.lat, marker.lng]}>
+					<Popup>
+						You are here. <br /> Easily customizable.
+					</Popup>
+				</Marker>
+			)}
 			<GetClickedPoint />
-			<GotoClickedPoint />
+			<GotoClickedPoint position={mapPosition} />
 		</MapContainer>
 	)
 }

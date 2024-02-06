@@ -1,6 +1,6 @@
 import styles from './AppNav.module.css'
 import { Logo } from '../Logo/Logo'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 export function AppNav() {
 	return (
 		<nav className={styles.nav}>
@@ -8,14 +8,15 @@ export function AppNav() {
 
 			<ul>
 				<li>
-					<NavLink to='/app/cities'>Cities</NavLink>
+					<NavLink to='cities'>Cities</NavLink>
 				</li>
 				<li>
-					<NavLink to='/app/countries' className={styles.active}>
+					<NavLink to='countries' className={styles.active}>
 						Countries
 					</NavLink>
 				</li>
 			</ul>
+			<Outlet />
 		</nav>
 	)
 }

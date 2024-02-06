@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-type geoLocPosition = { lat: number; lng: number }
+export type geoLocPosition = { lat: number; lng: number }
 
 export function useGeoLocation() {
 	const [loadingPosition, setLoadingPosition] = useState(false)

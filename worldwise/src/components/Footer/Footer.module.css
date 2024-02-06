@@ -1,0 +1,12 @@
+.copyright {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+.copyright p {
+	text-align: center;
+	font-size: 0.8rem;
+	color: var(--color-light--1);
+	line-height: 1.1rem;
+	align-items: end;
+}
