@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
 import type { geoLocPosition } from '../../hooks/useGeoLocation'
 import { MapContainer, TileLayer, useMap, useMapEvent, Marker, Popup } from 'react-leaflet'
+import { useNavigate } from 'react-router-dom'
 
 function GetClickedPoint() {
+	const navigate = useNavigate()
 	const eventMap = useMapEvent('click', () => {
-		console.log(eventMap.getCenter())
-		eventMap.getCenter()
+		const { lat, lng } = eventMap.getCenter()
+		navigate(`form/${lat}/${lng}`)
 	})
 	return null
 }
 
-type GotoClickedPointProps = { position: geoLocPosition }
-
-function GotoClickedPoint({ position }: GotoClickedPointProps) {
+function GotoClickedPoint({ position }: { position: geoLocPosition }) {
 	const map = useMap()
 	map.setView([position.lat, position.lng])
 	return null
@@ -23,7 +23,7 @@ type MapProps = {
 }
 
 export function Map({ currentLocation }: MapProps) {
-	const [mapPosition, setMapPosition] = useState<geoLocPosition>({ lat: 10, lng: 10 })
+	const [mapPosition, setMapPosition] = useState<geoLocPosition>({ lat: 36, lng: -5 })
 	const [mapZoom, setMapZoom] = useState(6)
 	const [marker, setMarker] = useState<geoLocPosition>()
 

@@ -22,8 +22,6 @@ export function useAuthReducer() {
 	const [state, dispatch] = useReducer(authReducer, initialAuthState)
 
 	const logIn = (email: string, password: string): void => {
-		console.log('paso por login', email, password)
-
 		if (email === 'juanicoylosdelacueva@gmail.com' && password === 'enlab') {
 			dispatch({ type: authActionKind.LOG_IN, payload: FAKE_USER })
 		}
