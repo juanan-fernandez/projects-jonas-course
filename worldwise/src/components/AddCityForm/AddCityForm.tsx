@@ -1,10 +1,15 @@
 import { useParams } from 'react-router-dom'
+import { useReverseLocation } from '../../hooks/useReverseLocation'
+import Spinner from '../Spinner/Spinner'
 
 export function AddCityForm(): React.JSX.Element {
 	const { lat, lng } = useParams()
 	console.log({ lat, lng })
+	const { isLoading, terror, location } = useReverseLocation(Number(lat), Number(lng))
 
 	return (
+		{isLoading && <Spinner hexColor='#00c46a'/>}
+		{terror && <p>{terror}</p>}
 		<div>
 			<form>
 				<label htmlFor='city'>City Name</label>
