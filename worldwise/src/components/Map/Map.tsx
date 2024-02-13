@@ -23,7 +23,7 @@ type MapProps = {
 }
 
 export function Map({ currentLocation }: MapProps) {
-	const [mapPosition, setMapPosition] = useState<geoLocPosition>({ lat: 36, lng: -5 })
+	const [mapPosition, setMapPosition] = useState<geoLocPosition>({ lat: 40.416775, lng: -3.70379 })
 	const [mapZoom, setMapZoom] = useState(6)
 	const [marker, setMarker] = useState<geoLocPosition>()
 

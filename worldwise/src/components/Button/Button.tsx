@@ -2,16 +2,12 @@ import styles from './Button.module.css'
 
 type ButtonProps = {
 	children: React.ReactNode
-	onClickHandler?: () => void
+	onClick?: () => void
 }
 
-export function Button({ children, onClickHandler }: ButtonProps) {
-	const onButtonClick = () => {
-		if (onClickHandler) onClickHandler()
-	}
-
+export function Button({ children, onClick }: ButtonProps) {
 	return (
-		<button className={styles.primary} onClick={onButtonClick}>
+		<button className={styles.primary} onClick={onClick}>
 			{children}
 		</button>
 	)

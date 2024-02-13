@@ -18,8 +18,8 @@ export interface LocalityT {
 }
 
 export function useReverseLocation(lat: number, lng: number) {
-	const key = import.meta.env.VITE_REVERSE_API_KEY as string
-	const url = `https://api-bdc.net/data/reverse-geocode?latitude=${lat}&longitude=${lng}&localityLanguage=es&key=${key}`
+	const key = import.meta.env.VITE_REVERSEAPI as string
+	const url = `https://api-bdc.net/data/reverse-geocode?latitude=${lat}&longitude=${lng}&localityLanguage=en&key=${key}`
 
 	const [location, setLocation] = useState<LocalityT>({} as LocalityT)
 	const { isLoading, terror, requestApi } = useRequesApi({ url })

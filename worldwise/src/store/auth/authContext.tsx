@@ -1,9 +1,9 @@
-import { authReducer, authActionKind, authState, initialAuthState } from './authReducer'
+import { authReducer, authActionKind, initialAuthState, userT } from './authReducer'
 import { ReactNode, createContext, useReducer } from 'react'
 
 type authCtxType = {
-	isAuth: authState['isAuth']
-	user: authState['user']
+	isAuth: boolean
+	user: userT | null
 	logIn?: (email: string, password: string) => void
 	logOut?: () => void
 }

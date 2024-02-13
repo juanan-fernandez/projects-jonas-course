@@ -1,7 +1,7 @@
 .layout {
 	position: relative;
 	display: grid;
-	grid-template-columns: 1fr 2fr;
+	grid-template-columns: minmax(350px, 1fr) minmax(350px, 2fr);
 	padding: 0rem;
 	overscroll-behavior-y: none;
 }

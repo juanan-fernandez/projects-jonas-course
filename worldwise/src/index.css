@@ -71,7 +71,8 @@ textarea {
 	transition: all 0.2s;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
 	outline: none;
 	background-color: #fff;
 }
