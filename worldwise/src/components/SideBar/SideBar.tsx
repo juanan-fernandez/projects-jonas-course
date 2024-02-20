@@ -6,7 +6,6 @@ export function SideBar() {
 	return (
 		<div className={styles.sidebar}>
 			<AppNav />
-
 			<Footer />
 		</div>
 	)

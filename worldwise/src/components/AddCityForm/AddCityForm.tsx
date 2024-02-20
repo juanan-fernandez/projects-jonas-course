@@ -21,11 +21,11 @@ function getEmojiFlag(countryCode: string) {
 	return emojiFlag
 }
 
-function getFormatedDate(): string {
-	const today = new Date()
-	const dd = String(today.getDate()).padStart(2, '0')
-	const mm = String(today.getMonth() + 1).padStart(2, '0') // January is 0!
-	const yyyy = today.getFullYear()
+function getFormatedDate(today: string): string {
+	const date = new Date(today)
+	const dd = String(date.getDate()).padStart(2, '0')
+	const mm = String(date.getMonth() + 1).padStart(2, '0') // January is 0!
+	const yyyy = date.getFullYear()
 
 	return dd + '/' + mm + '/' + yyyy
 }
@@ -48,7 +48,7 @@ export function AddCityForm(): React.JSX.Element {
 	}, [location.countryCode])
 
 	useEffect(() => {
-		setFormData(prev => ({ ...prev, city: location.city, visited_on: getFormatedDate() }))
+		setFormData(prev => ({ ...prev, city: location.city, visited_on: new Date().toISOString() }))
 
 		getFlag()
 	}, [location])
@@ -68,7 +68,7 @@ export function AddCityForm(): React.JSX.Element {
 				position: { lat: Number(lat), lng: Number(lng) },
 				country: location.countryName,
 				flag: emojiFlag,
-				visited_on: formData.visited_on,
+				visited_on: new Date(formData.visited_on).toISOString(),
 				notes: formData.notes,
 				user: authCtx.user
 			}
@@ -85,12 +85,24 @@ export function AddCityForm(): React.JSX.Element {
 			{!isLoading && !terror && location?.city && (
 				<form onSubmit={submitHandler}>
 					<label htmlFor='city'>City Name</label>
-					<input type='text' name='city' value={formData.city} onChange={changeInputHandler} />
+					<input type='text' name='city' id='city' value={formData.city} onChange={changeInputHandler} />
 					<span>{emojiFlag}</span>
 					<label htmlFor='visited_on'>When did you go to {location.city.slice(0, 25)}</label>
-					<input type='text' name='visited_on' value={formData.visited_on} onChange={changeInputHandler} />
+					<input
+						type='text'
+						name='visited_on'
+						id='visited_on'
+						value={getFormatedDate(formData.visited_on)}
+						onChange={changeInputHandler}
+					/>
 					<label htmlFor='notes'>Notes about your trip to {location.city.slice(0, 25)}</label>
-					<textarea className={styles.bigger} name='notes' value={formData.notes} onChange={changeInputHandler} />
+					<textarea
+						className={styles.bigger}
+						name='notes'
+						id='notes'
+						value={formData.notes}
+						onChange={changeInputHandler}
+					/>
 					<Button>ADD</Button>
 				</form>
 			)}
