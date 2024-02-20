@@ -1,5 +1,5 @@
 import styles from './AddCityForm.module.css'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useReverseLocation } from '../../hooks/useReverseLocation'
 import Spinner from '../Spinner/Spinner'
 import { useCallback, useEffect, useState } from 'react'
@@ -10,10 +10,8 @@ import { useAuth } from '../../store/auth/useAuth'
 
 function getEmojiFlag(countryCode: string) {
 	const OFFSET = 127397 // Offset code for regional indicator symbol letters
-
 	// Convert country code to uppercase
 	const countryCodeUppercase: string = countryCode.toUpperCase()
-
 	// Convert each letter of the country code to a flag emoji
 	let emojiFlag = ''
 	for (let i = 0; i < countryCodeUppercase.length; i++) {
@@ -21,6 +19,15 @@ function getEmojiFlag(countryCode: string) {
 	}
 
 	return emojiFlag
+}
+
+function getFormatedDate(): string {
+	const today = new Date()
+	const dd = String(today.getDate()).padStart(2, '0')
+	const mm = String(today.getMonth() + 1).padStart(2, '0') // January is 0!
+	const yyyy = today.getFullYear()
+
+	return dd + '/' + mm + '/' + yyyy
 }
 
 export function AddCityForm(): React.JSX.Element {
@@ -31,6 +38,7 @@ export function AddCityForm(): React.JSX.Element {
 	const [emojiFlag, setEmojiFlag] = useState<string>('')
 	const citiesCtx = useCities()
 	const authCtx = useAuth()
+	const navigate = useNavigate()
 
 	const getFlag = useCallback(() => {
 		if (location.countryCode) {
@@ -40,7 +48,7 @@ export function AddCityForm(): React.JSX.Element {
 	}, [location.countryCode])
 
 	useEffect(() => {
-		setFormData(prev => ({ ...prev, city: location.city, visited_on: new Date().toISOString() }))
+		setFormData(prev => ({ ...prev, city: location.city, visited_on: getFormatedDate() }))
 
 		getFlag()
 	}, [location])
@@ -55,7 +63,8 @@ export function AddCityForm(): React.JSX.Element {
 		ev.preventDefault()
 		if (formData.visited_on.trim() !== null) {
 			const newLocation: City = {
-				city: formData.city,
+				id: self.crypto.randomUUID(),
+				cityName: formData.city,
 				position: { lat: Number(lat), lng: Number(lng) },
 				country: location.countryName,
 				flag: emojiFlag,
@@ -63,9 +72,9 @@ export function AddCityForm(): React.JSX.Element {
 				notes: formData.notes,
 				user: authCtx.user
 			}
-			console.log(newLocation)
-
 			citiesCtx.addCity(newLocation)
+
+			navigate('/app/cities')
 		}
 	}
 
@@ -76,7 +85,8 @@ export function AddCityForm(): React.JSX.Element {
 			{!isLoading && !terror && location?.city && (
 				<form onSubmit={submitHandler}>
 					<label htmlFor='city'>City Name</label>
-					<input type='text' name='city' value={formData.city} readOnly />
+					<input type='text' name='city' value={formData.city} onChange={changeInputHandler} />
+					<span>{emojiFlag}</span>
 					<label htmlFor='visited_on'>When did you go to {location.city.slice(0, 25)}</label>
 					<input type='text' name='visited_on' value={formData.visited_on} onChange={changeInputHandler} />
 					<label htmlFor='notes'>Notes about your trip to {location.city.slice(0, 25)}</label>

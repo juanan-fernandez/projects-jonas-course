@@ -1,5 +1,3 @@
-import { act } from 'react-dom/test-utils'
-
 /* eslint-disable indent */
 export enum authActionKind {
 	LOG_IN = 'LOGIN',

@@ -4,7 +4,8 @@ import { userT } from '../auth/authReducer'
 type PositionT = { lat: number; lng: number }
 
 export type City = {
-	city: string
+	id: string
+	cityName: string
 	country: string
 	flag: string
 	position: PositionT
@@ -15,7 +16,9 @@ export type City = {
 
 export type CitiesT = City[]
 
-export const initialCitiesState = [] as CitiesT
+export type citiesState = { cities: CitiesT; currentCity: City }
+
+export const initialCitiesState: citiesState = { cities: [] as CitiesT, currentCity: {} as City }
 
 export enum cityActionsEnum {
 	ADD = 'ADD',
@@ -23,19 +26,19 @@ export enum cityActionsEnum {
 }
 
 type addCityAction = { type: cityActionsEnum.ADD; payload: City }
-type deleteCityAction = { type: cityActionsEnum.DELETE; payload: City }
+type deleteCityAction = { type: cityActionsEnum.DELETE; payload: string }
 
 type citiesAction = addCityAction | deleteCityAction
 
-export function citiesReducer(state: CitiesT, action: citiesAction): CitiesT {
+export function citiesReducer(state: citiesState, action: citiesAction): citiesState {
 	const { type, payload } = action
 
 	switch (type) {
 		case cityActionsEnum.ADD:
-			return [...state, payload]
+			return { ...state, cities: [...state.cities, payload], currentCity: payload }
 
 		case cityActionsEnum.DELETE:
-			return state.filter(city => city.city !== payload.city)
+			return { ...state, cities: state.cities.filter(city => city.id !== payload), currentCity: {} as City }
 
 		default:
 			return state

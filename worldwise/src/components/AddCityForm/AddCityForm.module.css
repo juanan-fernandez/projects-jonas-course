@@ -1,6 +1,7 @@
 .form form {
 	padding: 2rem 1.4rem;
 	background-color: var(--color-dark--2);
+	position: relative;
 }
 
 .form label {
@@ -17,4 +18,11 @@
 
 .form input .bigger {
 	height: 2rem;
+}
+
+.form span {
+	font-size: 2rem;
+	position: absolute;
+	top: 3.5rem;
+	right: 1.7rem;
 }

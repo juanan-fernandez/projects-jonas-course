@@ -13,9 +13,7 @@ export function AppLayout() {
 		<div className={styles.floating}>
 			<main className={styles.layout}>
 				<div className={styles.floatbutton}>
-					{showButton && (
-						<Button onClickHandler={getCurrentPos}>{loading ? 'Loading...' : 'Use my position'}</Button>
-					)}
+					{showButton && <Button onClick={getCurrentPos}>{loading ? 'Loading...' : 'Use my position'}</Button>}
 				</div>
 				<SideBar />
 				<Map currentLocation={geolocationPosition} />

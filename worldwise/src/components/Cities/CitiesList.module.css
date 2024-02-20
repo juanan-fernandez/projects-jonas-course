@@ -1,0 +1,36 @@
+.instructions {
+	text-align: center;
+	font-weight: 700;
+	font-size: 1.1rem;
+	display: inline-block;
+	margin: 0.5 1rem;
+	padding: 1rem;
+}
+
+.listofcities {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 90%;
+}
+
+.city {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 0.5rem;
+}
+
+.city span {
+	margin: 0 1rem;
+	font-size: 1.5rem;
+	line-height: 1rem;
+}
+
+.delete {
+	background-color: var(--color-dark--2);
+	padding: 0.5rem;
+	border-radius: 50%;
+}

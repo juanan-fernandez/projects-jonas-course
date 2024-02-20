@@ -10,9 +10,7 @@
 	align-items: center;
 	margin: 1.4rem auto;
 	border-radius: 8px;
-	/* padding: 0.2rem 0rem; */
 	background-color: var(--color-dark--2);
-	/* height: 2rem; */
 }
 /* .nav li {
 	padding: 0.2rem 0.6rem;

@@ -1,7 +1,7 @@
 .layout {
 	position: relative;
 	display: grid;
-	grid-template-columns: minmax(350px, 1fr) minmax(350px, 2fr);
+	grid-template-columns: minmax(550px, 1fr) minmax(350px, 2fr);
 	padding: 0rem;
 	overscroll-behavior-y: none;
 }
@@ -14,6 +14,5 @@
 	position: absolute;
 	top: calc(100dvh - 8rem);
 	left: calc(60dvw);
-
 	z-index: 401;
 }

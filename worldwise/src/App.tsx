@@ -8,7 +8,7 @@ import { CitiesContextProvider } from './store/cities/citiesContext'
 import { NotFound } from './pages/NotFound/NotFound'
 import { AppLayout } from './pages/AppLayout/AppLayout'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
-import { Cities } from './components/Cities/Cities'
+import { CitiesList } from './components/Cities/CitiesList'
 import { Countries } from './components/Countries/Countries'
 import { AddCityForm } from './components/AddCityForm/AddCityForm'
 
@@ -31,7 +31,7 @@ function App(): React.JSX.Element {
 						}
 					>
 						<Route index element={<Navigate replace to='cities' />} />
-						<Route path='cities' index element={<Cities />} />
+						<Route path='cities' index element={<CitiesList />} />
 						<Route path='countries' element={<Countries />} />
 						<Route path='form/:lat/:lng' element={<AddCityForm />} />
 					</Route>
