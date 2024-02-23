@@ -11,6 +11,7 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { CitiesList } from './components/Cities/CitiesList'
 import { Countries } from './components/Countries/Countries'
 import { AddCityForm } from './components/AddCityForm/AddCityForm'
+import { CityDetails } from './components/Cities/CityDetails'
 
 function App(): React.JSX.Element {
 	return (
@@ -32,6 +33,7 @@ function App(): React.JSX.Element {
 					>
 						<Route index element={<Navigate replace to='cities' />} />
 						<Route path='cities' index element={<CitiesList />} />
+						<Route path='cities/:id' index element={<CityDetails />} />
 						<Route path='countries' element={<Countries />} />
 						<Route path='form/:lat/:lng' element={<AddCityForm />} />
 					</Route>

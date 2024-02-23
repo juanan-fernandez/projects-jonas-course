@@ -14,7 +14,7 @@ function getFormatted(theDate: string): string {
 
 export function CityItem({ city }: CityItemProps) {
 	const { deleteCity, currentCity } = useCities()
-
+	const { lat, lng } = city.position
 	const handleDelete = (ev: React.MouseEvent<HTMLButtonElement>) => {
 		ev.preventDefault()
 		deleteCity(city.id)
@@ -22,7 +22,10 @@ export function CityItem({ city }: CityItemProps) {
 
 	return (
 		<li>
-			<Link to={'/'} className={`${styles.city} ${city.id === currentCity.id ? styles['city--active'] : ''}`}>
+			<Link
+				to={`${city.id}?lat=${lat}&lng=${lng}`}
+				className={`${styles.city} ${city.id === currentCity.id ? styles['city--active'] : ''}`}
+			>
 				<span>{city.flag}</span>
 				<h3>{city.cityName}</h3>
 				<time>({getFormatted(city.visited_on)})</time>
