@@ -22,13 +22,15 @@ export const initialCitiesState: citiesState = { cities: [] as CitiesT, currentC
 
 export enum cityActionsEnum {
 	ADD = 'ADD',
-	DELETE = 'DELETE'
+	DELETE = 'DELETE',
+	GET = 'GET'
 }
 
 type addCityAction = { type: cityActionsEnum.ADD; payload: City }
 type deleteCityAction = { type: cityActionsEnum.DELETE; payload: string }
+type getCityAction = { type: cityActionsEnum.GET; payload: string }
 
-type citiesAction = addCityAction | deleteCityAction
+type citiesAction = addCityAction | deleteCityAction | getCityAction
 
 export function citiesReducer(state: citiesState, action: citiesAction): citiesState {
 	const { type, payload } = action
@@ -39,6 +41,9 @@ export function citiesReducer(state: citiesState, action: citiesAction): citiesS
 
 		case cityActionsEnum.DELETE:
 			return { ...state, cities: state.cities.filter(city => city.id !== payload), currentCity: {} as City }
+
+		case cityActionsEnum.GET:
+			return { ...state, currentCity: state.cities.find(city => city.id === payload) ?? ({} as City) }
 
 		default:
 			return state

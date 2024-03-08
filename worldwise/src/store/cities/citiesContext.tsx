@@ -6,6 +6,7 @@ type cityContextType = {
 	currentCity: City
 	addCity: (city: City) => void
 	deleteCity: (cityId: string) => void
+	getCity: (cityId: string) => void
 }
 
 export const citiesContext = createContext<cityContextType | null>(null)
@@ -21,14 +22,20 @@ function useCitiesReducer() {
 		dispatch({ type: cityActionsEnum.DELETE, payload: cityId })
 	}
 
-	return { state, addCity, deleteCity }
+	const getCity = (cityId: string) => {
+		dispatch({ type: cityActionsEnum.GET, payload: cityId })
+	}
+
+	return { state, addCity, deleteCity, getCity }
 }
 
 export function CitiesContextProvider({ children }: { children: ReactNode }): ReactNode {
-	const { state, addCity, deleteCity } = useCitiesReducer()
+	const { state, addCity, deleteCity, getCity } = useCitiesReducer()
 	const { cities, currentCity } = state
 
 	return (
-		<citiesContext.Provider value={{ cities, currentCity, addCity, deleteCity }}>{children}</citiesContext.Provider>
+		<citiesContext.Provider value={{ cities, currentCity, addCity, deleteCity, getCity }}>
+			{children}
+		</citiesContext.Provider>
 	)
 }

@@ -35,7 +35,7 @@ function App(): React.JSX.Element {
 						<Route path='cities' index element={<CitiesList />} />
 						<Route path='cities/:id' index element={<CityDetails />} />
 						<Route path='countries' element={<Countries />} />
-						<Route path='form/:lat/:lng' element={<AddCityForm />} />
+						<Route path='form' element={<AddCityForm />} />
 					</Route>
 
 					<Route path='*' element={<NotFound />} />

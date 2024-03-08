@@ -1,5 +1,5 @@
 import styles from './AddCityForm.module.css'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { useReverseLocation } from '../../hooks/useReverseLocation'
 import Spinner from '../Spinner/Spinner'
 import { useCallback, useEffect, useState } from 'react'
@@ -31,7 +31,9 @@ function getFormatedDate(today: string): string {
 }
 
 export function AddCityForm(): React.JSX.Element {
-	const { lat, lng } = useParams()
+	const [urlSearchParams] = useSearchParams()
+	const lat = Number(urlSearchParams.get('lat'))
+	const lng = Number(urlSearchParams.get('lng'))
 	const { isLoading, terror, location } = useReverseLocation(Number(lat), Number(lng))
 	const formInit = { city: '', visited_on: '', notes: '' }
 	const [formData, setFormData] = useState(formInit)

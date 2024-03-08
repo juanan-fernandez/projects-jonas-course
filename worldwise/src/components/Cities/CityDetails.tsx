@@ -1,27 +1,52 @@
-import { City } from '../../store/cities/citiesReducer'
+import styles from './CityDetails.module.css'
 import { Link, useParams } from 'react-router-dom'
-import { Backbutton } from '../BackButton/BackButton'
+import { Backbutton } from '../BackButton/Backbutton'
+import { useCities } from '../../store/cities/useCities'
+import { useEffect } from 'react'
 
-type CityDetailsProps = { city?: City }
+export function CityDetails() {
+	const params = useParams()
+	const { id } = params
+	const { getCity, currentCity } = useCities()
 
-export function CityDetails({ city }: CityDetailsProps) {
-	//const params =useParams()
+	useEffect(() => {
+		if (id) getCity(id)
+	}, [id])
 
-	if (!city) return null
+	if (!currentCity) return null
+
+	const { flag, cityName, visited_on, notes } = currentCity
 
 	return (
-		<section>
-			<p>CITY NAME</p>
-			<h3>
-				<span>{city.flag}</span> {city.cityName}
-			</h3>
-			<p>You went to {city.cityName} on</p>
-			<p>{city.visited_on}</p>
-			<p>Your notes</p>
-			<p>{city.notes}</p>
-			<p>Learn more</p>
-			<Link to={`https://es.wikipedia.org/wiki/${city.cityName}`}>CheckOut {city.cityName} on Wikipedia</Link>
-			<Backbutton />
+		<section className={styles.details}>
+			<div className={styles.row}>
+				<h6>CITY NAME</h6>
+				<h3>
+					<span>{flag}</span> {cityName}
+				</h3>
+			</div>
+			<div className={styles.row}>
+				<h6>You went to {cityName} on</h6>
+				<p className={styles.data}>{visited_on}</p>
+			</div>
+			<div className={styles.row}>
+				<h6>Your notes</h6>
+				<p className={styles.data}>{notes}</p>
+			</div>
+			<div className={styles.row}>
+				<h6>Learn more</h6>
+				<Link
+					className={styles.wiki}
+					to={`https://es.wikipedia.org/wiki/${cityName}`}
+					target='_blank'
+					rel='noreferrer'
+				>
+					CheckOut {cityName} on Wikipedia &rarr;
+				</Link>
+			</div>
+			<div>
+				<Backbutton />
+			</div>
 		</section>
 	)
 }

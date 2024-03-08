@@ -1,5 +1,21 @@
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-export function useUrlLocation(url: string) {
-	const params = useParams()
+type PositionT = { lat: number; lng: number } | null
+
+export function useUrlLocation() {
+	const [urlSearchParams, setUrlSearchParams] = useSearchParams()
+	const [urlPosition, setUrlPositiion] = useState<PositionT>(null)
+	const lat = Number(urlSearchParams.get('lat'))
+	const lng = Number(urlSearchParams.get('lng'))
+
+	function getUrlPosition() {
+		if (lat && lng) setUrlPositiion({ lat, lng })
+	}
+
+	useEffect(() => {
+		if (lat && lng) getUrlPosition()
+	}, [lat, lng])
+
+	return { urlLocation: urlPosition }
 }
