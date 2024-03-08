@@ -1,59 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
 .calendar {
-	background: #ffffff;
+	background: var(--color-dark--2);
 	box-shadow: 0px 2.3128px 39.3176px rgba(0, 0, 0, 0.25);
 	border-radius: 23.128px;
-	width: 620px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-bottom: 1rem;
 }
 
 .calendar__date {
-	width: 530px;
 	display: flex;
 	justify-content: space-between;
 	padding-top: 1.3rem;
 	padding-bottom: 0.4rem;
 	font-family: 'Oswald', sans-serif;
-	font-size: 32px;
-	line-height: 35px;
+	font-size: 28px;
+	line-height: 30px;
+	width: 95%;
+	color: var(--color-brand--1);
 }
 
 .calendar__date button {
 	background-color: transparent;
+	outline: none;
+	border: none;
+	cursor: pointer;
 }
 
 .calendar__days {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	width: 565px;
-	padding: 1rem;
-	font-size: 32px;
+	width: 98%;
+	padding: 0.5rem 0.2rem;
+	font-size: 20px;
 	font-weight: 700;
-	line-height: 35px;
+	line-height: 24px;
+	gap: 10px;
 }
 
 .calendar__numbers {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	gap: 15px;
-	width: 550px;
-	padding-bottom: 1rem;
+	column-gap: 10px;
+	row-gap: 12px;
+	width: 95%;
+	padding-bottom: 0.7rem;
 	font-family: 'Roboto';
-	font-size: 32px;
-	line-height: 65px;
+	font-size: 18px;
+	line-height: 22px;
+	align-items: center;
+	text-align: center;
 }
 
 .today {
-	background-color: #ffd200;
-	border-radius: 50%;
-	text-align: center;
-	padding: 0.1rem;
+	background-color: var(--color-brand--1);
+	/*border-radius: 50%;*/
 }
 
 .day--not-current-month {
-	color: #ddd;
+	color: var(--color-light--1);
 }

@@ -2,11 +2,12 @@ import styles from './AddCityForm.module.css'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { useReverseLocation } from '../../hooks/useReverseLocation'
 import Spinner from '../Spinner/Spinner'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { Button } from '../Button/Button'
 import { useCities } from '../../store/cities/useCities'
 import { City } from '../../store/cities/citiesReducer'
 import { useAuth } from '../../store/auth/useAuth'
+import Calendar from '../Calendar/Calendar'
 
 function getEmojiFlag(countryCode: string) {
 	const OFFSET = 127397 // Offset code for regional indicator symbol letters
@@ -37,7 +38,9 @@ export function AddCityForm(): React.JSX.Element {
 	const { isLoading, terror, location } = useReverseLocation(Number(lat), Number(lng))
 	const formInit = { city: '', visited_on: '', notes: '' }
 	const [formData, setFormData] = useState(formInit)
+	const [showCal, setShowCal] = useState(false)
 	const [emojiFlag, setEmojiFlag] = useState<string>('')
+	const notesRef = useRef<HTMLTextAreaElement | null>(null)
 	const citiesCtx = useCities()
 	const authCtx = useAuth()
 	const navigate = useNavigate()
@@ -80,6 +83,16 @@ export function AddCityForm(): React.JSX.Element {
 		}
 	}
 
+	const toggleCalendar = (): void => {
+		setShowCal(!showCal)
+	}
+
+	const updateVisitedOn = (myDate: string): void => {
+		setFormData(form => ({ ...form, visited_on: new Date(myDate).toISOString() }))
+		toggleCalendar()
+		notesRef.current?.focus()
+	}
+
 	return (
 		<div className={styles.form}>
 			{isLoading && <Spinner hexColor='#00c46a' />}
@@ -96,9 +109,13 @@ export function AddCityForm(): React.JSX.Element {
 						id='visited_on'
 						value={getFormatedDate(formData.visited_on)}
 						onChange={changeInputHandler}
+						onClick={toggleCalendar}
 					/>
+
+					{showCal && <Calendar width='300px' updateDate={updateVisitedOn} />}
 					<label htmlFor='notes'>Notes about your trip to {location.city.slice(0, 25)}</label>
 					<textarea
+						ref={notesRef}
 						className={styles.bigger}
 						name='notes'
 						id='notes'
