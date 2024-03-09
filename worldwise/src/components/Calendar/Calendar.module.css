@@ -60,6 +60,10 @@
 	/*border-radius: 50%;*/
 }
 
+.selected {
+	background-color: var(--color-brand--2);
+}
+
 .day--not-current-month {
 	color: var(--color-light--1);
 }

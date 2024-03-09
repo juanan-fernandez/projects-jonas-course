@@ -16,6 +16,11 @@ export const getMonthName = (month: number): string => {
 	return months[month].toUpperCase()
 }
 
+export const isValidDate = (dateExpression: string): boolean => {
+	const dateObject = new Date(dateExpression)
+	return !isNaN(dateObject.getTime())
+}
+
 export const getMonthNumber = (dateParam: Date): number => dateParam.getMonth()
 
 export const getCurrentNumberDay = (dateParam: Date): number => dateParam.getDate()

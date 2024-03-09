@@ -5,7 +5,8 @@ import {
 	getMonthNumber,
 	getCurrentNumberDay,
 	getRandomKey,
-	firstDayOfDate
+	firstDayOfDate,
+	isValidDate
 } from './date-module'
 import { useEffect, useState } from 'react'
 
@@ -17,13 +18,17 @@ type Day = {
 type CalendarProps = {
 	width?: string
 	updateDate?: (date: string) => void
+	selectDate?: string
 }
 
-export default function Calendar({ width = '50%', updateDate }: CalendarProps) {
-	const [month, setMonth] = useState(getMonthNumber(new Date()))
-	const [year, setYear] = useState(new Date().getFullYear())
-	const [days, setDays] = useState<Day[]>([])
+export default function Calendar({ width = '50%', updateDate, selectDate = '' }: CalendarProps) {
+	const initMonth = () => (isValidDate(selectDate) ? getMonthNumber(new Date(selectDate)) : getMonthNumber(new Date()))
+	const initYear = () => (isValidDate(selectDate) ? new Date(selectDate).getFullYear() : new Date().getFullYear())
 
+	const [month, setMonth] = useState(initMonth)
+	const [year, setYear] = useState(initYear)
+	const [days, setDays] = useState<Day[]>([])
+	console.log(selectDate)
 	const setUpCalendar = () => {
 		let calDays: Day[] = []
 		const firstDay = firstDayOfDate(new Date(year, month))
@@ -54,9 +59,25 @@ export default function Calendar({ width = '50%', updateDate }: CalendarProps) {
 		return today.getTime() === calDay.getTime()
 	}
 
+	const itsSelectedDate = (dayCal: number) => {
+		if (!isValidDate(selectDate)) return false
+		const selected = new Date(selectDate)
+		const calDay = new Date(year, month, dayCal)
+
+		return selected.getTime() === calDay.getTime()
+	}
+
 	useEffect(() => {
 		setUpCalendar()
 	}, [month, year])
+
+	useEffect(() => {
+		if (isValidDate(selectDate)) {
+			const convertSelectedDate = new Date(selectDate).toISOString()
+			setMonth(getMonthNumber(new Date(convertSelectedDate)))
+			setYear(new Date(convertSelectedDate).getFullYear())
+		}
+	}, [selectDate])
 
 	const prevMonth = (ev: React.MouseEvent) => {
 		ev.preventDefault()
@@ -96,7 +117,7 @@ export default function Calendar({ width = '50%', updateDate }: CalendarProps) {
 					key={getRandomKey() + idx + day.day}
 					className={`${itsTodaysDate(day.day) ? styles.today : ''} ${
 						day.isCurrentMonth ? '' : styles['day--not-current-month']
-					}`}
+					} ${itsSelectedDate(day.day) ? styles.selected : ''}`}
 				>
 					{day.day}
 				</div>

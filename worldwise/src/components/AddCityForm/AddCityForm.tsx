@@ -22,13 +22,13 @@ function getEmojiFlag(countryCode: string) {
 	return emojiFlag
 }
 
-function getFormatedDate(today: string): string {
-	const date = new Date(today)
+function getFormatedDate(theDate: string): string {
+	const date = new Date(theDate)
 	const dd = String(date.getDate()).padStart(2, '0')
 	const mm = String(date.getMonth() + 1).padStart(2, '0') // January is 0!
 	const yyyy = date.getFullYear()
-
 	return dd + '/' + mm + '/' + yyyy
+	//console.log({ date, formated, intlFormat })
 }
 
 export function AddCityForm(): React.JSX.Element {
@@ -36,11 +36,11 @@ export function AddCityForm(): React.JSX.Element {
 	const lat = Number(urlSearchParams.get('lat'))
 	const lng = Number(urlSearchParams.get('lng'))
 	const { isLoading, terror, location } = useReverseLocation(Number(lat), Number(lng))
-	const formInit = { city: '', visited_on: '', notes: '' }
+	const formInit = { city: '', visited_on: getFormatedDate(new Date().toISOString()), notes: '' }
 	const [formData, setFormData] = useState(formInit)
 	const [showCal, setShowCal] = useState(false)
 	const [emojiFlag, setEmojiFlag] = useState<string>('')
-	const notesRef = useRef<HTMLTextAreaElement | null>(null)
+	const notesRef = useRef<HTMLTextAreaElement>(null)
 	const citiesCtx = useCities()
 	const authCtx = useAuth()
 	const navigate = useNavigate()
@@ -53,8 +53,7 @@ export function AddCityForm(): React.JSX.Element {
 	}, [location.countryCode])
 
 	useEffect(() => {
-		setFormData(prev => ({ ...prev, city: location.city, visited_on: new Date().toISOString() }))
-
+		setFormData(prev => ({ ...prev, city: location.city }))
 		getFlag()
 	}, [location])
 
@@ -66,29 +65,36 @@ export function AddCityForm(): React.JSX.Element {
 
 	const submitHandler = (ev: React.FormEvent): void => {
 		ev.preventDefault()
-		if (formData.visited_on.trim() !== null) {
-			const newLocation: City = {
-				id: self.crypto.randomUUID(),
-				cityName: formData.city,
-				position: { lat: Number(lat), lng: Number(lng) },
-				country: location.countryName,
-				flag: emojiFlag,
-				visited_on: new Date(formData.visited_on).toISOString(),
-				notes: formData.notes,
-				user: authCtx.user
-			}
-			citiesCtx.addCity(newLocation)
+		if (formData.visited_on.trim() === '' || formData.city.trim() === '') return
 
-			navigate('/app/cities')
+		const newLocation: City = {
+			id: self.crypto.randomUUID(),
+			cityName: formData.city,
+			position: { lat: Number(lat), lng: Number(lng) },
+			country: location.countryName,
+			flag: emojiFlag,
+			visited_on: new Date(formData.visited_on).toISOString(),
+			notes: formData.notes,
+			user: authCtx.user
 		}
+		citiesCtx.addCity(newLocation)
+
+		navigate('/app/cities')
 	}
 
 	const toggleCalendar = (): void => {
 		setShowCal(!showCal)
 	}
 
+	const hideCalendar = (): void => {
+		if (showCal) {
+			setShowCal(false)
+			notesRef.current?.focus()
+		}
+	}
+
 	const updateVisitedOn = (myDate: string): void => {
-		setFormData(form => ({ ...form, visited_on: new Date(myDate).toISOString() }))
+		setFormData(form => ({ ...form, visited_on: getFormatedDate(new Date(myDate).toISOString()) }))
 		toggleCalendar()
 		notesRef.current?.focus()
 	}
@@ -107,12 +113,18 @@ export function AddCityForm(): React.JSX.Element {
 						type='text'
 						name='visited_on'
 						id='visited_on'
-						value={getFormatedDate(formData.visited_on)}
+						value={formData.visited_on}
 						onChange={changeInputHandler}
 						onClick={toggleCalendar}
 					/>
 
-					{showCal && <Calendar width='300px' updateDate={updateVisitedOn} />}
+					{showCal && (
+						<Calendar
+							width='300px'
+							updateDate={updateVisitedOn}
+							selectDate={getFormatedDate(formData.visited_on)}
+						/>
+					)}
 					<label htmlFor='notes'>Notes about your trip to {location.city.slice(0, 25)}</label>
 					<textarea
 						ref={notesRef}
@@ -121,6 +133,7 @@ export function AddCityForm(): React.JSX.Element {
 						id='notes'
 						value={formData.notes}
 						onChange={changeInputHandler}
+						onFocus={hideCalendar}
 					/>
 					<Button>ADD</Button>
 				</form>
