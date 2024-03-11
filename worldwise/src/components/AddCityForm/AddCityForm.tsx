@@ -28,7 +28,11 @@ function getFormatedDate(theDate: string): string {
 	const mm = String(date.getMonth() + 1).padStart(2, '0') // January is 0!
 	const yyyy = date.getFullYear()
 	return dd + '/' + mm + '/' + yyyy
-	//console.log({ date, formated, intlFormat })
+}
+
+function reverseStringDate(theDate: string): string {
+	theDate = theDate.split('/').reverse().join('-')
+	return theDate
 }
 
 export function AddCityForm(): React.JSX.Element {
@@ -73,10 +77,11 @@ export function AddCityForm(): React.JSX.Element {
 			position: { lat: Number(lat), lng: Number(lng) },
 			country: location.countryName,
 			flag: emojiFlag,
-			visited_on: new Date(formData.visited_on).toISOString(),
+			visited_on: new Date(reverseStringDate(formData.visited_on)).toISOString(),
 			notes: formData.notes,
 			user: authCtx.user
 		}
+
 		citiesCtx.addCity(newLocation)
 
 		navigate('/app/cities')
@@ -94,6 +99,7 @@ export function AddCityForm(): React.JSX.Element {
 	}
 
 	const updateVisitedOn = (myDate: string): void => {
+		console.log(myDate)
 		setFormData(form => ({ ...form, visited_on: getFormatedDate(new Date(myDate).toISOString()) }))
 		toggleCalendar()
 		notesRef.current?.focus()

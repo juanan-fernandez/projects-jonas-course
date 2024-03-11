@@ -102,6 +102,8 @@ export default function Calendar({ width = '50%', updateDate, selectDate = '' }:
 	}
 
 	const onSelectDay = (day: number) => {
+		console.log({ year, month, day })
+
 		const selectedDate = new Date(year, month, day).toISOString()
 		if (typeof updateDate === 'function') updateDate(selectedDate)
 	}
