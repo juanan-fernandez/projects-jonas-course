@@ -3,6 +3,7 @@ import { SideBar } from '../../components/SideBar/SideBar'
 import { Map } from '../../components/Map/Map'
 import { Button } from '../../components/Button/Button'
 import { useGeoLocation } from '../../hooks/useGeoLocation'
+import { User } from '../../components/User/User'
 
 export function AppLayout() {
 	const { loadingPosition: loading, geolocationPosition, getCurrentPos } = useGeoLocation()
@@ -16,6 +17,7 @@ export function AppLayout() {
 					{showButton && <Button onClick={getCurrentPos}>{loading ? 'Loading...' : 'Use my position'}</Button>}
 				</div>
 				<SideBar />
+				<User />
 				<Map currentLocation={geolocationPosition} />
 			</main>
 		</div>

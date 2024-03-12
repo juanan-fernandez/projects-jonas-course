@@ -27,7 +27,7 @@ type MapProps = {
 
 export function Map({ currentLocation }: MapProps) {
 	const [mapPosition, setMapPosition] = useState<geoLocPosition>({ lat: 40.416775, lng: -3.70379 })
-	const [mapZoom, setMapZoom] = useState(6)
+	const [mapZoom, setMapZoom] = useState(10)
 	const [marker, setMarker] = useState<geoLocPosition>()
 	const { urlLocation } = useUrlLocation()
 	const citiesCtx = useCities()
@@ -38,7 +38,6 @@ export function Map({ currentLocation }: MapProps) {
 			if (currentLocation?.lat !== 0 || currentLocation?.lng !== 0) {
 				setMapPosition({ lat: currentLocation.lat, lng: currentLocation.lng })
 				setMarker({ lat: currentLocation.lat, lng: currentLocation.lng })
-				setMapZoom(25)
 			}
 		}
 	}, [currentLocation.lat, currentLocation.lng])
@@ -50,13 +49,6 @@ export function Map({ currentLocation }: MapProps) {
 			}
 		}
 	}, [urlLocation])
-
-	const clickMapHandler = () => {
-		useMapEvent('click', ev => {
-			const { lat, lng } = ev.latlng
-			setMapPosition({ lat, lng })
-		})
-	}
 
 	return (
 		<MapContainer center={[mapPosition?.lat, mapPosition?.lng]} zoom={mapZoom} scrollWheelZoom={true}>

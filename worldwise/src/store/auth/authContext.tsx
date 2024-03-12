@@ -9,7 +9,7 @@ type authCtxType = {
 }
 
 const FAKE_USER = {
-	name: 'JUANAN FERNANDEZ',
+	name: 'JuanAn Fernández',
 	email: 'juanicoylosdelacueva@gmail.com',
 	avatar: 'https://robohash.org/elver.galarga@gmail.com'
 }

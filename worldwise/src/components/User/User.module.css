@@ -1,1 +1,40 @@
+.user {
+	position: absolute;
+	z-index: 401;
+	top: calc(2dvh);
+	right: 2%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.3rem 0.7rem;
+	width: 287px;
+	height: 60px;
+	border-radius: 10px;
+	background-color: var(--color-dark--1);
+	box-shadow: 0 0.8rem 2.4rem rgba(36, 42, 46, 0.5);
+}
 
+.user img {
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+}
+
+.user p {
+	text-transform: capitalize;
+	font-size: 1rem;
+	font-weight: bold;
+	color: var(--color-light--2);
+	margin-right: 10px;
+}
+
+.user button {
+	padding: 0.2rem 0.5rem;
+	border-radius: 5px;
+	border: none;
+	background-color: var(--color-dark--2);
+	color: var(--color-light--2);
+	font-size: 0.8rem;
+	font-weight: bold;
+	cursor: pointer;
+}
