@@ -17,7 +17,8 @@ function GetClickedPoint() {
 
 function GotoClickedPoint({ position }: { position: geoLocPosition }) {
 	const map = useMap()
-	map.setView([position.lat, position.lng], map.getMaxZoom() * 0.4)
+	//map.setView([position.lat, position.lng], map.getMaxZoom() * 0.6)
+	map.setView([position.lat, position.lng])
 	return null
 }
 
@@ -27,11 +28,15 @@ type MapProps = {
 
 export function Map({ currentLocation }: MapProps) {
 	const [mapPosition, setMapPosition] = useState<geoLocPosition>({ lat: 40.416775, lng: -3.70379 })
-	const [mapZoom, setMapZoom] = useState(10)
 	const [marker, setMarker] = useState<geoLocPosition>()
 	const { urlLocation } = useUrlLocation()
 	const citiesCtx = useCities()
 	const { cities } = citiesCtx
+
+	// function initZoom() {
+	// 	const map = useMap()
+	// 	return map.getMaxZoom() * 0.6
+	// }
 
 	useEffect(() => {
 		if (currentLocation) {
@@ -51,7 +56,7 @@ export function Map({ currentLocation }: MapProps) {
 	}, [urlLocation])
 
 	return (
-		<MapContainer center={[mapPosition?.lat, mapPosition?.lng]} zoom={mapZoom} scrollWheelZoom={true}>
+		<MapContainer center={[mapPosition?.lat, mapPosition?.lng]} scrollWheelZoom={true} zoom={6}>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
