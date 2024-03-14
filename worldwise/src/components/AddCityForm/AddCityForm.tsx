@@ -36,12 +36,16 @@ function reverseStringDate(theDate: string): string {
 }
 
 export function AddCityForm(): React.JSX.Element {
+	const [formData, setFormData] = useState({
+		city: '',
+		visited_on: '',
+		notes: ''
+	})
 	const [urlSearchParams] = useSearchParams()
 	const lat = Number(urlSearchParams.get('lat'))
 	const lng = Number(urlSearchParams.get('lng'))
 	const { isLoading, terror, location } = useReverseLocation(Number(lat), Number(lng))
-	const formInit = { city: '', visited_on: getFormatedDate(new Date().toISOString()), notes: '' }
-	const [formData, setFormData] = useState(formInit)
+
 	const [showCal, setShowCal] = useState(false)
 	const [emojiFlag, setEmojiFlag] = useState<string>('')
 	const notesRef = useRef<HTMLTextAreaElement>(null)
@@ -57,7 +61,7 @@ export function AddCityForm(): React.JSX.Element {
 	}, [location.countryCode])
 
 	useEffect(() => {
-		setFormData(prev => ({ ...prev, city: location.city }))
+		setFormData({ notes: '', city: location.city, visited_on: getFormatedDate(new Date().toISOString()) })
 		getFlag()
 	}, [location])
 
@@ -99,7 +103,6 @@ export function AddCityForm(): React.JSX.Element {
 	}
 
 	const updateVisitedOn = (myDate: string): void => {
-		console.log(myDate)
 		setFormData(form => ({ ...form, visited_on: getFormatedDate(new Date(myDate).toISOString()) }))
 		toggleCalendar()
 		notesRef.current?.focus()

@@ -10,8 +10,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		console.log(isAuth)
-
 		if (!isAuth) navigate('/login', { replace: true })
 	}, [isAuth])
 

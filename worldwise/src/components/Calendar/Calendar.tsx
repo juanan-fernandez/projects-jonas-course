@@ -28,7 +28,7 @@ export default function Calendar({ width = '50%', updateDate, selectDate = '' }:
 	const [month, setMonth] = useState(initMonth)
 	const [year, setYear] = useState(initYear)
 	const [days, setDays] = useState<Day[]>([])
-	console.log(selectDate)
+
 	const setUpCalendar = () => {
 		let calDays: Day[] = []
 		const firstDay = firstDayOfDate(new Date(year, month))
@@ -102,8 +102,6 @@ export default function Calendar({ width = '50%', updateDate, selectDate = '' }:
 	}
 
 	const onSelectDay = (day: number) => {
-		console.log({ year, month, day })
-
 		const selectedDate = new Date(year, month, day).toISOString()
 		if (typeof updateDate === 'function') updateDate(selectedDate)
 	}

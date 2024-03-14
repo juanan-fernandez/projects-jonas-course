@@ -22,7 +22,7 @@ export function useGeoLocation() {
 			},
 			() => {
 				setLoadingPosition(false)
-				console.log('Error in getting current position')
+				console.log('Error in getting current position') //TODO: Modal para mostrar info o errores
 			},
 			options
 		)
