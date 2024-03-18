@@ -18,6 +18,8 @@
 	--color-light--1: #aaa;
 	--color-light--2: #ececec;
 	--color-light--3: #d6dee0;
+	--color-err--1: #cd204e;
+	--color-warn--1: #eba210;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;

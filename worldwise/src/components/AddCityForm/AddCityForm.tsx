@@ -8,6 +8,7 @@ import { useCities } from '../../store/cities/useCities'
 import { City } from '../../store/cities/citiesReducer'
 import { useAuth } from '../../store/auth/useAuth'
 import Calendar from '../Calendar/Calendar'
+import Modal from '../Modal/Modal'
 
 function getEmojiFlag(countryCode: string) {
 	const OFFSET = 127397 // Offset code for regional indicator symbol letters
@@ -45,7 +46,7 @@ export function AddCityForm(): React.JSX.Element {
 	const lat = Number(urlSearchParams.get('lat'))
 	const lng = Number(urlSearchParams.get('lng'))
 	const { isLoading, terror, location } = useReverseLocation(Number(lat), Number(lng))
-
+	const [showModal, setShowModal] = useState(false)
 	const [showCal, setShowCal] = useState(false)
 	const [emojiFlag, setEmojiFlag] = useState<string>('')
 	const notesRef = useRef<HTMLTextAreaElement>(null)
@@ -64,6 +65,14 @@ export function AddCityForm(): React.JSX.Element {
 		setFormData({ notes: '', city: location.city, visited_on: getFormatedDate(new Date().toISOString()) })
 		getFlag()
 	}, [location])
+
+	useEffect(() => {
+		if (terror) {
+			setShowModal(true)
+		} else {
+			setShowModal(false)
+		}
+	}, [terror])
 
 	const changeInputHandler = (
 		ev: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
@@ -108,10 +117,18 @@ export function AddCityForm(): React.JSX.Element {
 		notesRef.current?.focus()
 	}
 
+	const hideModal = () => {
+		setShowModal(false)
+	}
+
 	return (
 		<div className={styles.form}>
 			{isLoading && <Spinner hexColor='#00c46a' />}
-			{terror && <p>{`${terror.status} - ${terror.strErr}`}</p>}
+			{terror && showModal && (
+				<Modal modalType='err' onModalClick={hideModal}>
+					<p>{`${terror.status} - ${terror.strErr}`}</p>
+				</Modal>
+			)}
 			{!isLoading && !terror && location?.city && (
 				<form onSubmit={submitHandler}>
 					<label htmlFor='city'>City Name</label>
